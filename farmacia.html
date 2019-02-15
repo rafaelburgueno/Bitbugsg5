@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,279 +11,298 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/starter-template/">
 
     <!-- Bootstrap core CSS -->
-<!--<link href="/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!--fuentes-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Raleway|Roboto|Ubuntu" rel="stylesheet"> 
 
     <style>
-body {
-  padding-top: 5rem;
-}
-/*.starter-template {
-  padding: 3rem 1.5rem;
-  text-align: center;
-}*/
-
-
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
+        *{
+            /* font-family: 'Roboto', sans-serif; */
+            font-family: 'Montserrat', sans-serif;
+            /* font-family: 'Raleway', sans-serif; */
+            /* font-family: 'Ubuntu', sans-serif; */
         }
-      }
+
+        body {
+            background-color: #f5f5f5;
+            padding-top: 5rem;
+        }
+
+
+
+
     </style>
 
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-info fixed-top">
-  <a class="navbar-brand" href="#">Farmacia</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+</head>
+<body class="bg-light">
+    
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+        <a class="navbar-brand" href="#">Farmacia</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Pedidos <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Despacho</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Entregados</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Cerrar sesión</a>
-      </li>
-      
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="..." aria-label="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button>
-    </form>
-  </div>
-</nav>
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Pedidos <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Despacho</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Entregados</a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="#">Archivo</a>
+                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Cerrar sesión</a>
+                </li>
+            </ul>
+    
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="..." aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+        </div>
+    </nav>
 
 <main role="main" class="container">
 
     <!--===============
         PEDIDO
     ================-->
-    <div class="card text-white bg-warning mb-5" >
+    <div class="card text-white bg-info mb-5 shadow-lg" >
         
-        <div class="card-header ">
-            Sala 202 A
-        </div>
-        
-        <div class="card-body">
-            <h5 class="card-title">Enf. Miguel Pereira</h5>
-            <p class="card-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rhoncus sem at sem rutrum interdum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-            </p>
-        
-            <ul class="list-group text-dark">
-                
-                <li class="list-group-item">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Facilisis 100mg</label>
-                    </div>
-                </li>
-                
-                <li class="list-group-item">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                        <label class="form-check-label" for="exampleCheck2">Dapibus ac facilisis in</label>
-                    </div>
-                </li>
-                
-                <li class="list-group-item">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck3">
-                        <label class="form-check-label" for="exampleCheck3">Morbi leo risus 10ml</label>
-                    </div>
-                </li>
-                
-                <li class="list-group-item">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck4">
-                        <label class="form-check-label" for="exampleCheck4">Porta ac consectetur ac</label>
-                    </div>
-                </li>
-                
-                <li class="list-group-item">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck5">
-                        <label class="form-check-label" for="exampleCheck5">Vestibulum at eros</label>
-                    </div>
-                </li>
-            
-            </ul>
+        <form>
 
-        </div>
-        
-        <div class="card-footer ">
-            <div class="row">
+            <div class="card-header text-center">
+                <h4 class="">Sala 202 A</h4>
+                <!-- <span class="badge badge-success">Rutina</span> -->
+                <span class="badge badge-danger">Urgente</span>
+                <!-- <span class="badge badge-warning">Modificado</span> -->
+            </div>
             
-                <button type="button" class="col btn btn-outline-dark mr-1">Completado</button>
+            <div class="card-body">
+                <h5 class="card-title">Enf. Alvaro Greco</h5>
+                <p class="card-text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rhoncus sem at sem rutrum interdum. Orci varius natoque et magnis dis, nascetur ridiculus mus.
+                </p>
+            
+                <ul class="list-group text-dark">
+                    
+                    <li class="list-group-item">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="a1" required>
+                            <label class="form-check-label" for="a1">Facilisis 100mg</label>
+                        </div>
+                    </li>
+                    
+                    <li class="list-group-item">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="a2" required>
+                            <label class="form-check-label" for="a2">Dapibus ac facilisis in</label>
+                        </div>
+                    </li>
+                    
+                    <li class="list-group-item">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="a3" required>
+                            <label class="form-check-label" for="a3">Morbi leo risus 10ml</label>
+                        </div>
+                    </li>
+                    
+                    <li class="list-group-item">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="a4" required>
+                            <label class="form-check-label" for="a4">Porta ac consectetur ac</label>
+                        </div>
+                    </li>
+                    
+                    <li class="list-group-item">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="a5" required>
+                            <label class="form-check-label" for="a5">Vestibulum at eros</label>
+                        </div>
+                    </li>
                 
-                <!--<button type="button" class="col btn btn-outline-dark mx-1">Middle</button>-->
-                
-                <button type="button" class="col btn btn-outline-dark ml-1">Rechazado</button>
+                </ul>
 
             </div>
-        </div>
+            
+            <div class="card-footer ">
+                <div class="row">
+                
+                    <button type="submit" class="col-6 btn btn-outline-light">Completado</button>
+                    
+                    <!--<button type="button" class="col btn btn-outline-dark mx-1">Middle</button>-->
+                    <div class="col-2"></div>
+                    <button type="button" class="col-4 btn btn-outline-dark">Revisión</button>
+
+                </div>
+            </div>
     
+        </form>
+
     </div>
 
 
     <!--===============
         PEDIDO
     ================-->
-    <div class="card text-white bg-info mb-5" >
+    <div class="card text-white bg-info mb-5 shadow-lg" >
         
-        <div class="card-header ">
-            Sala 202 A
-        </div>
-        
-        <div class="card-body">
-            <h5 class="card-title">Enf. Miguel Pereira</h5>
-            <p class="card-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rhoncus sem at sem rutrum interdum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-            </p>
-        
-            <ul class="list-group text-dark">
-                
-                <li class="list-group-item">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Facilisis 100mg</label>
-                    </div>
-                </li>
-                
-                <li class="list-group-item">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                        <label class="form-check-label" for="exampleCheck2">Dapibus ac facilisis in</label>
-                    </div>
-                </li>
-                
-                <li class="list-group-item">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck3">
-                        <label class="form-check-label" for="exampleCheck3">Morbi leo risus 10ml</label>
-                    </div>
-                </li>
-                
-                <li class="list-group-item">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck4">
-                        <label class="form-check-label" for="exampleCheck4">Porta ac consectetur ac</label>
-                    </div>
-                </li>
-                
-                <li class="list-group-item">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck5">
-                        <label class="form-check-label" for="exampleCheck5">Vestibulum at eros</label>
-                    </div>
-                </li>
-            
-            </ul>
-
-        </div>
-        
-        <div class="card-footer ">
-            <div class="row">
-            
-                <button type="button" class="col btn btn-outline-dark mr-1">Completado</button>
-                
-                <!--<button type="button" class="col btn btn-outline-dark mx-1">Middle</button>-->
-                
-                <button type="button" class="col btn btn-outline-dark ml-1">Rechazado</button>
-
-            </div>
-        </div>
+            <form>
     
-    </div>
+                <div class="card-header text-center">
+                    <h4 class="">Sala 107 A</h4>
+                    <!-- <span class="badge badge-success">Rutina</span> -->
+                    <!-- <span class="badge badge-danger">Urgente</span> -->
+                    <span class="badge badge-warning">Modificado</span>
+                </div>
+                
+                <div class="card-body">
+                    <h5 class="card-title">Enf. Carlos Umpierrez</h5>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rhoncus sem at sem rutrum interdum. Orci varius natoque et magnis dis, nascetur ridiculus mus.
+                    </p>
+                
+                    <ul class="list-group text-dark">
+                        
+                        <li class="list-group-item">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="b1" required>
+                                <label class="form-check-label" for="b1">Facilisis 100mg</label>
+                            </div>
+                        </li>
+                        
+                        <li class="list-group-item">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="b2" required>
+                                <label class="form-check-label" for="b2">Dapibus ac facilisis in</label>
+                            </div>
+                        </li>
+                        
+                        <li class="list-group-item">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="b3" required>
+                                <label class="form-check-label" for="b3">Morbi leo risus 10ml</label>
+                            </div>
+                        </li>
+                        
+                        <li class="list-group-item">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="b4" required>
+                                <label class="form-check-label" for="b4">Porta ac consectetur ac</label>
+                            </div>
+                        </li>
+                        
+                        <li class="list-group-item">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="b5" required>
+                                <label class="form-check-label" for="b5">Vestibulum at eros</label>
+                            </div>
+                        </li>
+                    
+                    </ul>
+    
+                </div>
+                
+                <div class="card-footer ">
+                    <div class="row">
+                    
+                        <button type="submit" class="col-6 btn btn-outline-light">Completado</button>
+                        
+                        <!--<button type="button" class="col btn btn-outline-dark mx-1">Middle</button>-->
+                        <div class="col-2"></div>
+                        <button type="button" class="col-4 btn btn-outline-dark">Revisión</button>
+    
+                    </div>
+                </div>
+        
+            </form>
+    
+        </div>
 
 
     <!--===============
         PEDIDO
     ================-->
-    <div class="card text-white bg-danger mb-5" >
+    <div class="card text-white bg-info mb-5 shadow-lg" >
         
-        <div class="card-header ">
-            Sala 202 A
-        </div>
-        
-        <div class="card-body">
-            <h5 class="card-title">Enf. Miguel Pereira</h5>
-            <p class="card-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rhoncus sem at sem rutrum interdum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-            </p>
-        
-            <ul class="list-group text-dark">
-                
-                <li class="list-group-item">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Facilisis 100mg</label>
-                    </div>
-                </li>
-                
-                <li class="list-group-item">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                        <label class="form-check-label" for="exampleCheck2">Dapibus ac facilisis in</label>
-                    </div>
-                </li>
-                
-                <li class="list-group-item">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck3">
-                        <label class="form-check-label" for="exampleCheck3">Morbi leo risus 10ml</label>
-                    </div>
-                </li>
-                
-                <li class="list-group-item">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck4">
-                        <label class="form-check-label" for="exampleCheck4">Porta ac consectetur ac</label>
-                    </div>
-                </li>
-                
-                <li class="list-group-item">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck5">
-                        <label class="form-check-label" for="exampleCheck5">Vestibulum at eros</label>
-                    </div>
-                </li>
-            
-            </ul>
-
-        </div>
-        
-        <div class="card-footer ">
-            <div class="row">
-            
-                <button type="button" class="col btn btn-outline-dark mr-1">Completado</button>
-                
-                <!--<button type="button" class="col btn btn-outline-dark mx-1">Middle</button>-->
-                
-                <button type="button" class="col btn btn-outline-dark ml-1">Rechazado</button>
-
-            </div>
-        </div>
+            <form>
     
-    </div>
+                <div class="card-header text-center">
+                    <h4 class="">Sala 216 B</h4>
+                    <span class="badge badge-success">Rutina</span>
+                    <!-- <span class="badge badge-danger">Urgente</span> -->
+                    <!-- <span class="badge badge-warning">Modificado</span> -->
+                </div>
+                
+                <div class="card-body">
+                    <h5 class="card-title">Enf. Miguel Pereira</h5>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rhoncus sem at sem rutrum interdum. Orci varius natoque et magnis dis, nascetur ridiculus mus.
+                    </p>
+                
+                    <ul class="list-group text-dark">
+                        
+                        <li class="list-group-item">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="c1" required>
+                                <label class="form-check-label" for="c1">Facilisis 100mg</label>
+                            </div>
+                        </li>
+                        
+                        <li class="list-group-item">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="c2" required>
+                                <label class="form-check-label" for="c2">Dapibus ac facilisis in</label>
+                            </div>
+                        </li>
+                        
+                        <li class="list-group-item">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="c3" required>
+                                <label class="form-check-label" for="c3">Morbi leo risus 10ml</label>
+                            </div>
+                        </li>
+                        
+                        <li class="list-group-item">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="c4" required>
+                                <label class="form-check-label" for="c4">Porta ac consectetur ac</label>
+                            </div>
+                        </li>
+                        
+                        <li class="list-group-item">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="c5" required>
+                                <label class="form-check-label" for="c5">Vestibulum at eros</label>
+                            </div>
+                        </li>
+                    
+                    </ul>
+    
+                </div>
+                
+                <div class="card-footer ">
+                    <div class="row">
+                    
+                        <button type="submit" class="col-6 btn btn-outline-light">Completado</button>
+                        
+                        <!--<button type="button" class="col btn btn-outline-dark mx-1">Middle</button>-->
+                        <div class="col-2"></div>
+                        <button type="button" class="col-4 btn btn-outline-dark">Revisión</button>
+    
+                    </div>
+                </div>
+        
+            </form>
+    
+        </div>
 
 
 
