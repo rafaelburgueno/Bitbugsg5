@@ -1,0 +1,53 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}{{pedidos.cama}} - {{pedidos.paciente}}{% endblock %}
+{% block content %}
+
+{% include 'pedidos/includes/pedidos_menu.html' %}
+
+<main role="main">
+  <div class="container">
+    
+    
+    {% comment %} la estructura html del pedido puede traerse textualmente del template de 'pedidos' {% endcomment %}
+    {% comment %} el objeto debe llevar el nombre del modelo, como el modelo esta en plural, debera ser en plural {% endcomment %}
+    <div class="card text-white bg-info mb-5 shadow-lg" >
+        <form>
+          <div class="card-header">
+            {% comment %} <a href="{% url 'pedido' pedido.id pedido.paciente|slugify %}" style="color:white;"> {% endcomment %}
+              <h4 class="text-center">{{pedidos.cama}} - {{pedidos.paciente}}</h4>
+            {% comment %} </a> {% endcomment %}
+            <p class="text-right">
+            {% if pedidos.urgencia == 'no urgente' %}
+              <span class="badge badge-success">Rutina</span>
+            {% elif pedidos.urgencia == 'urgente' %}
+              <span class="badge badge-danger">Urgente</span>
+            {% else %}
+              <span class="badge badge-warning">Modificado</span>
+            {% endif %}
+            </p>
+
+            <h5 class="card-title text-center">Estado: {{pedidos.estado}}</h5>
+          </div>
+            
+          <div class="card-body">
+
+            <ul class="list-group text-dark mb-3">
+              {% for insumo in pedidos.insumos_as_list %}
+                <li class="list-group-item">{{insumo}}</li>
+              {% endfor %}
+            </ul>
+
+            <p class="">Solicitado por: {{pedidos.solicitante}} - {{pedidos.created}}</p>
+            <p class="">Procesado por: {{pedidos.procesante}} - {{pedidos.fecha_despachable}}</p>
+            <p class="">Retirado por: {{pedidos.retirante}} - {{pedidos.fecha_despacho}}</p>
+
+          </div>
+        </form>
+      </div>
+    
+    
+    
+  </div>
+</main>
+{% endblock %}
