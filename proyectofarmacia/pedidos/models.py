@@ -16,13 +16,14 @@ class Pedidos(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
     
-    fecha_procesamiento = models.DateTimeField(verbose_name="Fecha de procesamiento", null=True, blank=True)
-    fecha_despachable = models.DateTimeField(verbose_name="Fecha despachable", null=True, blank=True)
-    fecha_despacho = models.DateTimeField(verbose_name="Fecha de despacho", null=True, blank=True)
+    fecha_procesamiento = models.CharField(verbose_name="Fecha de procesamiento", max_length=100, blank=True, default='0000')
+    fecha_despachable = models.CharField(verbose_name="Fecha despachable", max_length=100, blank=True, default='0000')
+    fecha_despacho = models.CharField(verbose_name="Fecha de despacho", max_length=100, blank=True, default='0000')
 
     class Meta:
         verbose_name = "pedido"
         verbose_name_plural = "pedidos"
+        # la siguiente linea le inciacomo se presentan los resultados, segun la urgencia y al momento de creacion
         ordering = ['-urgencia', 'created']
 
     def __str__(self):
@@ -31,3 +32,8 @@ class Pedidos(models.Model):
     # metodo para dividir el string de insumos
     def insumos_as_list(self):
         return self.insumos.split(';')
+
+    
+    # metodo para actualizar la fecha
+    #def actualizar_fecha(self):
+        #return self.insumos.split(';')

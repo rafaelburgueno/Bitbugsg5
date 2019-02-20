@@ -8,13 +8,14 @@
 <main role="main">
   <div class="container mb-4">
 
-    {% comment %} las siguientes 'pipes' le dice que campo usar para ordenar los resultados(por id y en reversa) {% endcomment %}
-    {% for pedido in pedidos_list|dictsort:"id" %}
+    {% comment %} las siguientes 'pipes' le dice que campo usar para ordenar los resultados(por urgencia y en reversa: '|dictsort:"urgencia" reversed ') {% endcomment %}
+    {% for pedido in pedidos_list %}
 
       <div class="card text-white bg-info mb-5 shadow-lg" >
         <form>
           <div class="card-header">
             <a href="{% url 'pedidos:pedido' pedido.id pedido.paciente|slugify %}" style="color:white;">
+              <span class="badge badge-dark">id:{{pedido.id}}</span>
               <h4 class="text-center">{{pedido.cama}} - {{pedido.paciente}}</h4>
             </a>
             <p class="text-right">
@@ -39,8 +40,16 @@
             </ul>
 
             <p class="">Solicitado por: {{pedido.solicitante}} - {{pedido.created}}</p>
-            <p class="">Procesado por: {{pedido.procesante}} - {{pedido.fecha_despachable}}</p>
+            <p class="">Procesado por: {{pedido.procesante}} - {{pedido.fecha_procesamiento}}</p>
+            <p class="">Despachable: {{pedido.fecha_despachable}}</p>
             <p class="">Retirado por: {{pedido.retirante}} - {{pedido.fecha_despacho}}</p>
+
+            <p>
+              <a href="{% url 'pedidos:procesar' pedido.id %}" class="btn btn-outline-light">Procesar</a>
+            </p>
+            <p>
+              <a href="{% url 'pedidos:delete' pedido.id %}" class="btn btn-outline-light">Borrar</a>
+            </p>
 
             {% comment %} <p class="card-text">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius natoque et magnis dis, nascetur ridiculus mus.

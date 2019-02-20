@@ -8,11 +8,49 @@
     <div class="row mt-3 mb-3">
       <div class="col-md-9 mx-auto">
         <form action="" method="post">{% csrf_token %}
-          {{ form.as_p }}
+          {% comment %} {{ form.as_p }} {% endcomment %}
+
+
+          <p>
+            <label for="id_paciente">Paciente:</label> 
+            <input type="text" name="paciente" maxlength="200" required id="id_paciente">
+          </p>
+          <p>
+            <label for="id_cama">Cama:</label> 
+            <input type="text" name="cama" maxlength="100" required id="id_cama">
+          </p>
+          <p>
+            <label for="id_insumos">Insumos:</label> 
+            <textarea name="insumos" cols="40" rows="10" required id="id_insumos"></textarea>
+          </p>
+          
+          
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary" for="id_urgencia">
+              <input type="radio" name="urgencia" id="id_urgencia" autocomplete="off" value="urgente"> Urgente
+            </label>
+            <label class="btn btn-secondary active" for="id_urgencia2">
+              <input type="radio" name="urgencia" id="id_urgencia2" autocomplete="off" value="no urgente" checked> No urgente
+            </label>
+          </div>
+          
+          
+          {% comment %} <p>
+            <label for="id_urgencia">Urgente</label>  {% endcomment %}
+            {% comment %} <input type="text" name="urgencia" maxlength="100" required id="id_urgencia"> {% endcomment %}
+            {% comment %} <input type="radio" name="urgencia" id="id_urgencia" value="urgente">
+            
+            <label for="id_urgencia2">No urgente</label> 
+            <input type="radio" name="urgencia" id="id_urgencia2" value="no urgente" checked>
+          </p> {% endcomment %}
+
+
           <div class="text-center">
             <input type="submit" class="btn btn-primary btn-block" value="Crear pedido" />
           </div>
         </form>
+
+
       </div>
     </div>
   </div>

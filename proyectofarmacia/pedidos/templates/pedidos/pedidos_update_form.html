@@ -1,0 +1,137 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Procesar pedido{% endblock %}
+{% block content %}
+{% include 'pedidos/includes/pedidos_menu.html'%}
+<main role="main">
+  <div class="container">
+
+
+    {% if 'ok' in request.GET %}
+      <p style="color:green;">Pedido editado correctamente.
+        <a href="{% url 'pedidos:pedidos' %}">
+          has click aqui para ver el resultado
+        </a>
+      </p>
+    {% endif %}
+
+
+    <div class="card text-white bg-info mb-5 shadow-lg" >
+      <div class="card-header">
+        <span class="badge badge-dark">id:{{pedidos.id}}</span>
+        <h4 class="text-center">{{pedidos.cama}} - {{pedidos.paciente}}</h4>
+        <p class="text-right">
+          {% if pedidos.urgencia == 'no urgente' %}
+            <span class="badge badge-success">Rutina</span>
+          {% elif pedidos.urgencia == 'urgente' %}
+            <span class="badge badge-danger">Urgente</span>
+          {% else %}
+            <span class="badge badge-warning">Modificado</span>
+          {% endif %}
+        </p>
+
+        <h5 class="card-title text-center">Estado: {{pedidos.estado}}</h5>
+      </div>
+
+
+
+
+
+    <form action="" method="post" onsubmit="return seteos_despachable_onsubmit()">{% csrf_token %}
+    {% comment %} {{ form.as_p }} {% endcomment %}
+
+      <div class="card-body">
+        <ul class="list-group text-dark mb-3">
+          {% for insumo in pedidos.insumos_as_list %}
+            <li class="list-group-item pb-0">
+              {% comment %} {{insumo}} {% endcomment %}
+                
+              <div class="form-check pl-3 py-0">
+                {% comment %} los input checkbox no son usados para actualizar en la base de datos
+                solo se utiliza el aspecto visual del checkbox y para validar el boton de submit {% endcomment %}
+                <input type="checkbox" class="form-check-input" id="{{forloop.counter}}--{{insumo|slugify}}" required>
+                {% comment %} el forloop.counter y el insumo|slugify solucionan el problema de los id duplicados en el label  {% endcomment %}
+                <label class="form-check-label" for="{{forloop.counter}}--{{insumo|slugify}}">{{insumo}}</label>
+              </div>
+            
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+
+          {% comment %}
+          django establece el siguiente input con el nombre usuario que accede
+          {% endcomment %}
+          <p><label for="id_procesante">Procesante:</label> 
+          <input type="text" name="procesante" value="" maxlength="200" id="id_procesante" readonly></p>
+          
+
+
+          {% comment %}
+          el estado se toma de la base de datos, y javascript lo actualiza a 'para retirar' en la funcion onsubmit
+          {% endcomment %}
+          <p><label for="id_estado">Estado:</label> 
+          <input type="text" name="estado" value="{{pedidos.estado}}" maxlength="100" required id="id_estado" readonly></p>
+          
+          
+
+          {% comment %}
+          en fecha_procesamiento siempre deberia imprimirse el momento en el que se accede a esta vista de edicion
+          {% endcomment %}
+          <p><label for="id_fecha_procesamiento">Fecha procesamiento:</label> 
+          {% comment %} {% if pedidos.fecha_procesamiento != '0000' %}
+            <input type="text" name="fecha_procesamiento" id="id_fecha_procesamiento" value="{{pedidos.fecha_procesamiento}}" readonly>
+          {% else %} {% endcomment %}
+            <input type="text" name="fecha_procesamiento" id="id_fecha_procesamiento" value="{% now "DATETIME_FORMAT" %}" readonly></p>
+          {% comment %} {% endif %} {% endcomment %}
+          
+
+          <p>
+            <label for="id_fecha_despachable">Fecha despachable:</label> 
+            <input type="text" name="fecha_despachable" id="id_fecha_despachable" value="{{pedidos.fecha_despachable}}" readonly>
+          </p>
+
+
+
+          <div class="text-center">
+            <input type="submit" class="btn btn-primary btn-block" value="Finalizar pedido" />
+          </div>
+        </form>
+
+      </div>
+
+
+<script>
+  function seteos_despachable_onsubmit() {
+    
+    var d = new Date();
+    var fecha = d.toLocaleDateString()+' '+d.toLocaleTimeString();
+    document.getElementById("id_fecha_despachable").value = fecha;
+
+
+    document.getElementById("id_estado").value = 'para retirar';
+    
+
+    confirm("ejecutando la funcion onsubmit ;D");
+  }
+</script>
+
+
+{% comment %} <div class=""> {% endcomment %}
+{% comment %} {% now "DATETIME_FORMAT" %} {% endcomment %}
+{% comment %} {{pedidos.created}}
+</div> {% endcomment %}
+          
+          
+
+
+
+
+
+
+
+
+  </div>
+</main>
+{% endblock %}

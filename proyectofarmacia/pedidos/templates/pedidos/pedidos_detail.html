@@ -42,6 +42,10 @@
             <p class="">Procesado por: {{pedidos.procesante}} - {{pedidos.fecha_despachable}}</p>
             <p class="">Retirado por: {{pedidos.retirante}} - {{pedidos.fecha_despacho}}</p>
 
+            <p>
+              <a href="{% url 'pedidos:procesar' pedido.id %}">Procesar</a>
+            </p>
+
           </div>
         </form>
       </div>
