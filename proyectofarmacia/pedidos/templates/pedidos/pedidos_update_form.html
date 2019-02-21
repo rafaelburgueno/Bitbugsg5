@@ -2,18 +2,18 @@
 {% load static %}
 {% block title %}Procesar pedido{% endblock %}
 {% block content %}
-{% include 'pedidos/includes/pedidos_menu.html'%}
+{% comment %} {% include 'pedidos/includes/pedidos_menu.html'%} {% endcomment %}
 <main role="main">
   <div class="container">
 
 
-    {% if 'ok' in request.GET %}
+    {% comment %} {% if 'ok' in request.GET %}
       <p style="color:green;">Pedido editado correctamente.
         <a href="{% url 'pedidos:pedidos' %}">
           has click aqui para ver el resultado
         </a>
       </p>
-    {% endif %}
+    {% endif %} {% endcomment %}
 
 
     <div class="card text-white bg-info mb-5 shadow-lg" >
@@ -64,7 +64,7 @@
           django establece el siguiente input con el nombre usuario que accede
           {% endcomment %}
           <p><label for="id_procesante">Procesante:</label> 
-          <input type="text" name="procesante" value="" maxlength="200" id="id_procesante" readonly></p>
+          <input type="text" name="procesante" value="{{pedidos.procesante}}" maxlength="200" id="id_procesante" readonly></p>
           
 
 

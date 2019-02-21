@@ -1,12 +1,22 @@
 {% extends 'core/base.html' %}
 {% load static %}
-{% block title %}Páginas{% endblock %}
+{% block title %}Pedidos{% endblock %}
 {% block content %}
 
-{% include 'pedidos/includes/pedidos_menu.html' %}
+{% comment %} {% include 'pedidos/includes/pedidos_menu.html' %} {% endcomment %}
 
 <main role="main">
   <div class="container mb-4">
+
+    {% comment %}
+    Mensaje de confirmacion por una edicion exitosa
+    {% endcomment %}
+    {% if 'ok' in request.GET %}
+      <div class="alert alert-success" role="alert">
+        La accion fue realizaca correctamente!
+      </div>
+    {% endif %}
+
 
     {% comment %} las siguientes 'pipes' le dice que campo usar para ordenar los resultados(por urgencia y en reversa: '|dictsort:"urgencia" reversed ') {% endcomment %}
     {% for pedido in pedidos_list %}
@@ -14,7 +24,7 @@
       <div class="card text-white bg-info mb-5 shadow-lg" >
         <form>
           <div class="card-header">
-            <a href="{% url 'pedidos:pedido' pedido.id pedido.paciente|slugify %}" style="color:white;">
+            <a href="{% url 'pedidos:pedido' pedido.id %}" style="color:white;">
               <span class="badge badge-dark">id:{{pedido.id}}</span>
               <h4 class="text-center">{{pedido.cama}} - {{pedido.paciente}}</h4>
             </a>

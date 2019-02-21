@@ -16,12 +16,12 @@ class HomePageView(TemplateView):
 
     # otra forma de insertar diccionarios de contexto
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {'texto':'Texto introducido desde core.views, con el metodo get()'})
+        return render(request, self.template_name, {'texto':'Texto introducido desde core.views, con el metodo get()','titulo':'Aplicacion para pedidos en farmacias.'})
 
 
-class SamplePageView(TemplateView):
-    template_name = 'core/sample.html'
+# class SamplePageView(TemplateView):
+#     template_name = 'core/sample.html'
 
 
-class ArchivoPageView(TemplateView):
-    template_name = 'core/archivo.html'
+# class ArchivoPageView(TemplateView):
+#     template_name = 'core/archivo.html'

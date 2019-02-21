@@ -9,7 +9,8 @@ pedidos_patterns = ([
 
     # vistas basadas en clases
     path('', PedidoListView.as_view(), name='pedidos'),
-    path('<int:pk>/<slug:slug>/', PedidoDetailView.as_view(), name='pedido'),
+    #path('<int:pk>/<slug:slug>/', PedidoDetailView.as_view(), name='pedido'),
+    path('pedidos/<int:pk>/', PedidoDetailView.as_view(), name='pedido'),
     path('crear/', PedidoCreate.as_view(), name='crear'),
     path('procesar/<int:pk>/', PedidosUpdate.as_view(), name='procesar'),
     path('delete/<int:pk>/', PedidosDelete.as_view(), name='delete'),

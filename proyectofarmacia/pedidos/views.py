@@ -18,7 +18,7 @@ class PedidoListView(ListView):
 
 class PedidoDetailView(DetailView):
     model = Pedidos
-
+    
 
 class PedidoCreate(CreateView):
     model = Pedidos
@@ -32,7 +32,11 @@ class PedidoCreate(CreateView):
         #print('si funcioneeeeee cavaneee!!!')
         #print(self.request.method)
         #print( self.request.user.username)
-        form.instance.solicitante = self.request.user.username
+        if self.request.user.get_full_name():
+            form.instance.solicitante = self.request.user.get_full_name()
+        else:
+            form.instance.solicitante = self.request.user.username
+        #form.instance.solicitante = self.request.user.username
         return super().form_valid(form)
     ########################################
 
@@ -45,15 +49,17 @@ class PedidosUpdate(UpdateView):
     
     success_url = reverse_lazy('pedidos:procesar')
     def get_success_url(self):
-        return reverse_lazy('pedidos:procesar', args=[self.object.id]) + '?ok'
-        #return reverse_lazy('pedidos:pedido', args=[self.object.id]) + '?ok'
+        #return reverse_lazy('pedidos:procesar', args=[self.object.id]) + '?ok'
+        return reverse_lazy('pedidos:pedidos') + '?ok'
     
 
     ########################################
     # PRUEBA PARA VALIDAR FORMULARIOS SI FUNCA!!!!!!!!!
     def form_valid(self, form):
-        
-        form.instance.procesante = self.request.user.username
+        if self.request.user.get_full_name():
+            form.instance.procesante = self.request.user.get_full_name()
+        else:
+            form.instance.procesante = self.request.user.username
         #print(self.request.user.username)
         return super().form_valid(form)
     ########################################
@@ -63,6 +69,9 @@ class PedidosUpdate(UpdateView):
 class PedidosDelete(DeleteView):
     model = Pedidos
     success_url = reverse_lazy('pedidos:pedidos')
+
+    def get_success_url(self):
+        return reverse_lazy('pedidos:pedidos') + '?ok'
 
 
 
