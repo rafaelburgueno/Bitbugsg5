@@ -24,12 +24,15 @@ class PedidoCreate(CreateView):
     model = Pedidos
     # en la siguiente lines se tienen que especificar los campos que el usuario podra crear
     fields = ['paciente','cama','insumos','urgencia']
-    success_url = reverse_lazy('pedidos:pedidos')
+    # success_url = reverse_lazy('pedidos:pedidos')
+
+    def get_success_url(self):
+        #return reverse_lazy('pedidos:procesar', args=[self.object.id]) + '?ok'
+        return reverse_lazy('pedidos:crear') + '?creado'
 
     ########################################
-    # PRUEBA PARA VALIDAR FORMULARIOS SI FUNCA!!!!!!!!!
+    # VALIDAR FORMULARIOS
     def form_valid(self, form):
-        #print('si funcioneeeeee cavaneee!!!')
         #print(self.request.method)
         #print( self.request.user.username)
         if self.request.user.get_full_name():
@@ -47,14 +50,14 @@ class PedidosUpdate(UpdateView):
     fields = ['estado','fecha_procesamiento','fecha_despachable']
     template_name_suffix = '_update_form'
     
-    success_url = reverse_lazy('pedidos:procesar')
+    #success_url = reverse_lazy('pedidos:procesar')
     def get_success_url(self):
         #return reverse_lazy('pedidos:procesar', args=[self.object.id]) + '?ok'
-        return reverse_lazy('pedidos:pedidos') + '?ok'
+        return reverse_lazy('pedidos:pedidos') + '?procesado'
     
 
     ########################################
-    # PRUEBA PARA VALIDAR FORMULARIOS SI FUNCA!!!!!!!!!
+    # VALIDAR FORMULARIOS
     def form_valid(self, form):
         if self.request.user.get_full_name():
             form.instance.procesante = self.request.user.get_full_name()
@@ -68,10 +71,10 @@ class PedidosUpdate(UpdateView):
 
 class PedidosDelete(DeleteView):
     model = Pedidos
-    success_url = reverse_lazy('pedidos:pedidos')
+    #success_url = reverse_lazy('pedidos:pedidos')
 
     def get_success_url(self):
-        return reverse_lazy('pedidos:pedidos') + '?ok'
+        return reverse_lazy('pedidos:pedidos') + '?borrado'
 
 
 

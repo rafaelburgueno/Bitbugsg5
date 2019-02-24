@@ -7,56 +7,162 @@
 <main role="main">
   <div class="container">
 
+
+    {% comment %}
+    Mensaje de confirmacion por una edicion exitosa
+    {% endcomment %}
+    {% if 'creado' in request.GET %}
+      <div class="alert alert-success alert-dismissible fade show desvanecer" role="alert">
+        El pedido fue creado correctamente.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endif %}
+
+
     {% comment %} <div class="row mt-3 mb-3">
       <div class="col-md-9 mx-auto"> {% endcomment %}
 
     <div class="card text-white bg-info mb-5 shadow-lg" >
-      <div class="card-header">
-        <form action="" method="post">{% csrf_token %}
+      <div class="card-header text-center">
+        <h4>Crear pedido</h4>
+      </div>
+        
+      <form action="" method="post">{% csrf_token %}
+        <div class="card-body">
           {% comment %} {{ form.as_p }} {% endcomment %}
 
-
-          <p>
-            <label for="id_paciente">Paciente:</label> 
-            <input type="text" name="paciente" maxlength="200" required id="id_paciente">
-          </p>
-          <p>
-            <label for="id_cama">Cama:</label> 
-            <input type="text" name="cama" maxlength="100" required id="id_cama">
-          </p>
-          <p>
-            <label for="id_insumos">Insumos:</label> 
-            <textarea name="insumos" cols="40" rows="10" required id="id_insumos"></textarea>
-          </p>
-          
-          
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-secondary" for="id_urgencia">
-              <input type="radio" name="urgencia" id="id_urgencia" autocomplete="off" value="urgente"> Urgente
-            </label>
-            <label class="btn btn-secondary active" for="id_urgencia2">
-              <input type="radio" name="urgencia" id="id_urgencia2" autocomplete="off" value="no urgente" checked> No urgente
-            </label>
+          {% comment %} 
+          radio button para definir la urgencia, por defecto seteado en 'no urgente'
+          {% endcomment %}
+          <div class="form-group text-center">
+            <div class="btn-group btn-group-toggle mx-auto" data-toggle="buttons">
+              <label class="btn btn-outline-light" for="id_urgencia">
+                <input type="radio" name="urgencia" id="id_urgencia" autocomplete="off" value="urgente"> Urgente
+              </label>
+              <label class="btn btn-outline-light active" for="id_urgencia2">
+                <input type="radio" name="urgencia" id="id_urgencia2" autocomplete="off" value="no urgente" checked> No urgente
+              </label>
+            </div>
           </div>
-          
-          
-          {% comment %} <p>
-            <label for="id_urgencia">Urgente</label>  {% endcomment %}
-            {% comment %} <input type="text" name="urgencia" maxlength="100" required id="id_urgencia"> {% endcomment %}
-            {% comment %} <input type="radio" name="urgencia" id="id_urgencia" value="urgente">
+
+
+            {% comment %}
+            input para seleccionar el paciente
+            {% endcomment %}
+            <div class="form-group text-center">
+              {% comment %} <label class="" for="select_nombre">Paciente:</label> {% endcomment %}
+              <select class="form-control mx-auto" id="select_nombre" onchange="set_nombre_y_cama()" required>
+                <option value="" selected>Selecciona un paciente</option>
+                <option value="101-A - Aldo Dutra Manrique">Aldo Dutra Manrique</option>
+                <option value="405-A - Ana Maria Rodriguez">Ana Maria Rodriguez</option>
+                <option value="113-B - Camila Gomez Terio">Camila Gomez Terio</option>
+                <option value="202-B - Camilo Saravia Echeverry">Camilo Saravia Echeverry</option>
+                <option value="101-B - Carlos Alberto Fernandez Mendizabal">Carlos Alberto Fernandez Mendizabal</option>
+                <option value="301-A - Carlos Lima Duran">Carlos Lima Duran</option>
+                <option value="305-A - Diego Lema Duarte">Diego Lema Duarte</option>
+                <option value="210-B - José Rodriguez Dardano">José Rodriguez Dardano</option>
+                <option value="109-B - Mario Calivari Brun">Mario Calivari Brun</option>
+                <option value="406-B - Myriam Perea Formulario">Myriam Perea Formulario</option>
+              </select>
             
-            <label for="id_urgencia2">No urgente</label> 
-            <input type="radio" name="urgencia" id="id_urgencia2" value="no urgente" checked>
-          </p> {% endcomment %}
+              <input type="hidden" class="form-control mt-1" name="paciente" required id="id_paciente" readonly>
+            
+              <input type="hidden" class="form-control mt-1" name="cama" maxlength="100" required id="id_cama" readonly>
 
 
-          <div class="text-center">
-            <input type="submit" class="btn btn-primary btn-block" value="Crear pedido" />
+            </div>
+
+
+            {% comment %}
+            espacio para introducir los insumos que se pediran
+            {% endcomment %}
+            <div class="form-group text-center">
+              <label for="id_insumos">Insumos:</label> 
+              
+              <select class="form-control mx-auto" id="select_insumo" onchange="set_insumos()">
+                <option value="" selected>Selecciona los insumos</option>
+                <option value="ABILIFY Comp. 10 mg">ABILIFY Comp. 10 mg</option>
+                <option value="ALDOMET Comp. recub. 250 mg">ALDOMET Comp. recub. 250 mg</option>
+                <option value="AMINOPLASMAL L Sol. para perfusión 12,5%">AMINOPLASMAL L Sol. para perfusión 12,5%</option>
+                <option value="DAFLON 500 Comp. recub. 450/50 mg">DAFLON 500 Comp. recub. 450/50 mg</option>
+                <option value="DIOVAN Sol. oral 3 mg/ml">DIOVAN Sol. oral 3 mg/ml</option>
+                <option value="HEPATECT Sol. para perfusión 50 UI/ml">HEPATECT Sol. para perfusión 50 UI/ml</option>
+                <option value="HUBERPLEX Comp. recub. 5 mg">HUBERPLEX Comp. recub. 5 mg</option>
+                <option value="NAPRILENE Comp. 20 mg">NAPRILENE Comp. 20 mg</option>
+                <option value="NITIGRAF EFG Sol. iny. 350 mg/ml">NITIGRAF EFG Sol. iny. 350 mg/ml</option>
+                <option value="ODENIL Crema 2,5 mg/g">ODENIL Crema 2,5 mg/g</option>
+                <option value="OMEPRAZOL NORMON Cáps. dura conteniendo gránulos 40 mg">OMEPRAZOL NORMON Cáps. dura conteniendo gránulos 40 mg</option>
+                <option value="RADIALAR '280' Sol. iny. 60%">RADIALAR "280" Sol. iny. 60%</option>
+                <option value="TAMOXIFENO CINFA EFG Comp. 20 mg">TAMOXIFENO CINFA EFG Comp. 20 mg</option>
+                <option value="TOSEINA Sol. oral 2 mg/ml">TOSEINA Sol. oral 2 mg/ml</option>
+                <option value="VALDISPERT Comp. recub. 125 mg">VALDISPERT Comp. recub. 125 mg</option>
+                <option value="VENOSMIL Cáps. 200 mg">VENOSMIL Cáps. 200 mg</option>
+                <option value="VIRUDERM Pom. 5%">VIRUDERM Pom. 5%</option>
+                <option value="XIFIA Comp. recub. con película 400 mg">XIFIA Comp. recub. con película 400 mg</option>
+                <option value="XUMADOL Comp. 1 g">XUMADOL Comp. 1 g</option>
+              </select>
+
+              <input type="hidden" class="form-control mt-1" name="insumos" required id="id_insumos" readonly>
+
+              <table class="table table-striped table-sm my-1" id="tabla_insumos">
+              
+              </table>
+
+            </div>
+          
+
+
+            <div class="text-center">
+              <input type="submit" class="btn btn-primary btn-block" value="Crear pedido" />
+            </div>
+          
           </div>
         </form>
 
+<script>
 
-      </div>
+function set_nombre_y_cama(){
+  var seleccionado = document.getElementById("select_nombre").value;
+  //console.log(seleccionado);
+  console.log(seleccionado.slice(0,5));
+  console.log(seleccionado.slice(8,seleccionado.length));
+  
+  var cama = seleccionado.slice(0,5);
+  var nombre = seleccionado.slice(8,seleccionado.length);
+  // seleccionado.name;
+  //seleccionado.dataset.cama;
+
+  document.getElementById("id_paciente").value = nombre;
+  document.getElementById("id_cama").value = cama;
+}
+
+
+function set_insumos(){
+  var seleccionado = document.getElementById("select_insumo").value;
+  console.log(seleccionado);
+
+  var tabla_insumos = document.getElementById("tabla_insumos");
+  tabla_insumos.innerHTML += "<tr><td>" + seleccionado + "</td><td>x 1</td></tr>";   
+
+  var texto = document.getElementById("id_insumos").value;
+  
+  if(texto == ''){
+    document.getElementById("id_insumos").value = seleccionado;   
+  }else{
+    document.getElementById("id_insumos").value = texto + ";" + seleccionado;   
+  }
+
+}
+
+
+</script>
+
+
+
+
+
     </div>
   </div>
 </main>

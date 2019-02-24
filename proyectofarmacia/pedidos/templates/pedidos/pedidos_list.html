@@ -1,6 +1,6 @@
 {% extends 'core/base.html' %}
 {% load static %}
-{% block title %}Pedidos{% endblock %}
+{% block title %}Pedidos Farmacia{% endblock %}
 {% block content %}
 
 {% comment %} {% include 'pedidos/includes/pedidos_menu.html' %} {% endcomment %}
@@ -11,10 +11,18 @@
     {% comment %}
     Mensaje de confirmacion por una edicion exitosa
     {% endcomment %}
-    {% if 'ok' in request.GET %}
-      <div class="alert alert-success" role="alert">
-        La accion fue realizaca correctamente!
+    {% if request.GET %}
+      <div class="alert alert-success alert-dismissible fade show desvanecer" role="alert">
+        {% if 'procesado' in request.GET %}
+          El pedido fue procesado correctamente.
+        {% elif 'borrado' in request.GET %}
+          El pedido fue borrado correctamente.
+        {% endif %}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+    
     {% endif %}
 
 
@@ -24,21 +32,44 @@
       <div class="card text-white bg-info mb-5 shadow-lg" >
         <form>
           <div class="card-header">
-            <a href="{% url 'pedidos:pedido' pedido.id %}" style="color:white;">
-              <span class="badge badge-dark">id:{{pedido.id}}</span>
-              <h4 class="text-center">{{pedido.cama}} - {{pedido.paciente}}</h4>
-            </a>
-            <p class="text-right">
+            {% comment %} <a href="{% url 'pedidos:pedido' pedido.id %}" style="color:white;"> {% endcomment %}
+            
+            
+            {% comment %} 
+            Visualiza la urgencia del pedido (rutina, urgente)
+            {% endcomment %}
             {% if pedido.urgencia == 'no urgente' %}
-              <span class="badge badge-success">Rutina</span>
+              <span class="badge badge-success float-left">Rutina</span>
             {% elif pedido.urgencia == 'urgente' %}
-              <span class="badge badge-danger">Urgente</span>
+              <span class="badge badge-danger float-left">Urgente</span>
             {% else %}
-              <span class="badge badge-warning">Modificado</span>
+              <span class="badge badge-warning float-left">Modificado</span>
             {% endif %}
-            </p>
 
-            <h5 class="card-title text-center">Estado: {{pedido.estado}}</h5>
+
+            {% comment %} 
+            Visualizar el estado del pedido (pendiente, en proceso o para retirar)
+            {% endcomment %}
+            {% if pedido.estado == 'pendiente' %}
+            <span class="badge badge-danger float-right">{{pedido.estado}}</span>
+            {% elif pedido.estado == 'en proceso' %}
+            <span class="badge badge-warning float-right">{{pedido.estado}}</span>
+            {% elif pedido.estado == 'para retirar' %}
+            <span class="badge badge-success float-right">{{pedido.estado}}</span>
+            {% endif %}
+
+
+            {% comment %}
+            Visualiza el id del pedido (podria ocultarse, no es muy relevante)
+            {% endcomment %}
+            <p class="text-center"><span class="badge badge-pill badge-light">id:{{pedido.id}}</span></p>
+
+
+            {% comment %}
+            Visualiza la sala, la cama y el nombre del paciente
+            {% endcomment %}
+            <h4 class="text-center mt-3">{{pedido.cama}} - {{pedido.paciente}}</h4>
+
           </div>
             
           <div class="card-body">
@@ -54,12 +85,13 @@
             <p class="">Despachable: {{pedido.fecha_despachable}}</p>
             <p class="">Retirado por: {{pedido.retirante}} - {{pedido.fecha_despacho}}</p>
 
-            <p>
-              <a href="{% url 'pedidos:procesar' pedido.id %}" class="btn btn-outline-light">Procesar</a>
-            </p>
-            <p>
-              <a href="{% url 'pedidos:delete' pedido.id %}" class="btn btn-outline-light">Borrar</a>
-            </p>
+            
+            <a href="{% url 'pedidos:procesar' pedido.id %}" class="btn btn-block btn-outline-light">Procesar</a>
+                        
+            <a href="{% url 'pedidos:delete' pedido.id %}" class="btn btn-block btn-outline-warning">Borrar</a>
+
+
+            
 
             {% comment %} <p class="card-text">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius natoque et magnis dis, nascetur ridiculus mus.
@@ -70,6 +102,7 @@
         </form>
 
       </div>
+
 
     {% endfor %}
   </div>
