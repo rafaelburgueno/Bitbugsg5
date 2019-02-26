@@ -2,8 +2,31 @@
 {% load static %}
 {% block title %}Inicio{% endblock %}
 {% block content %}
+
 <div class="container">
   <div style="padding-top:50px; text-align:center;">
+
+
+    {% comment %}
+    Mensaje de accexo denegado
+    {% endcomment %}
+    {% if 'solo_para_usuarios_de_sala' in request.GET %}
+      <div class="alert alert-warning alert-dismissible fade show desvanecer" role="alert">
+        La pagina para crear pedidos, solo esta permitida para usuarios de sala.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% elif 'solo_para_usuarios_de_farmacia' in request.GET %}
+      <div class="alert alert-warning alert-dismissible fade show desvanecer" role="alert">
+        La pagina para procesar pedidos, solo esta permitida para usuarios de farmacia.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endif %}
+
+
     <h1>{{titulo}}</h1>
     <p class="lead">{{texto}}</p>
   </div>

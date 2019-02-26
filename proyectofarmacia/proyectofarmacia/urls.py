@@ -23,4 +23,6 @@ urlpatterns = [
     path('', include('core.urls')),
     path('pedidos/', include(pedidos_patterns)),
     path('admin/', admin.site.urls),
+    # Paths de auth
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

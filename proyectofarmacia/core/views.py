@@ -16,6 +16,10 @@ class HomePageView(TemplateView):
 
     # otra forma de insertar diccionarios de contexto
     def get(self, request, *args, **kwargs):
+        if 'sala' == str(request.user.groups.all()[0]):
+            print('si que si')
+        else:
+            print('mmm no no')
         return render(request, self.template_name, {'texto':'Texto introducido desde core.views, con el metodo get()','titulo':'Aplicacion para pedidos en farmacias.'})
 
 
