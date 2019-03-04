@@ -12,6 +12,8 @@ from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 
 from .models import Pedidos
+from pacientes.models import Paciente
+from insumos.models import Insumo
 
 
 class StaffRequiredMixin(object):
@@ -47,6 +49,15 @@ class PedidoCreate(CreateView):
     # en la siguiente lines se tienen que especificar los campos que el usuario podra crear
     fields = ['paciente','cama','insumos','urgencia']
     # success_url = reverse_lazy('pedidos:pedidos')
+
+    ###################################################
+    # PRUEBO MANDAR UN CONTEXT DATA
+    def get_context_data(self, **kwargs):
+        context = super(PedidoCreate, self).get_context_data(**kwargs)
+        context['pacientes'] = Paciente.objects.all()
+        context['insumos'] = Insumo.objects.all()
+        return context
+    ###################################################
 
 
     def dispatch(self, request, *args, **kwargs):

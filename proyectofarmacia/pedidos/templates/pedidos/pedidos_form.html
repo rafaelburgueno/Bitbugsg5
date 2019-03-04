@@ -55,16 +55,10 @@
               {% comment %} <label class="" for="select_nombre">Paciente:</label> {% endcomment %}
               <select class="form-control mx-auto" id="select_nombre" onchange="set_nombre_y_cama()" required>
                 <option value="" selected>Selecciona un paciente</option>
-                <option value="101-A - Aldo Dutra Manrique">Aldo Dutra Manrique</option>
-                <option value="405-A - Ana Maria Rodriguez">Ana Maria Rodriguez</option>
-                <option value="113-B - Camila Gomez Terio">Camila Gomez Terio</option>
-                <option value="202-B - Camilo Saravia Echeverry">Camilo Saravia Echeverry</option>
-                <option value="101-B - Carlos Alberto Fernandez Mendizabal">Carlos Alberto Fernandez Mendizabal</option>
-                <option value="301-A - Carlos Lima Duran">Carlos Lima Duran</option>
-                <option value="305-A - Diego Lema Duarte">Diego Lema Duarte</option>
-                <option value="210-B - José Rodriguez Dardano">José Rodriguez Dardano</option>
-                <option value="109-B - Mario Calivari Brun">Mario Calivari Brun</option>
-                <option value="406-B - Myriam Perea Formulario">Myriam Perea Formulario</option>
+                {% for paciente in pacientes %}
+                <option value="{{paciente}}">{{paciente}}</option>
+                {% endfor %}
+                
               </select>
             
               <input type="hidden" class="form-control mt-1" name="paciente" required id="id_paciente" readonly>
@@ -75,6 +69,9 @@
             </div>
 
 
+            {% comment %} <div class="text-center">{{pacientes}}</div> {% endcomment %}
+
+
             {% comment %}
             espacio para introducir los insumos que se pediran
             {% endcomment %}
@@ -83,25 +80,9 @@
               
               <select class="form-control mx-auto" id="select_insumo" onchange="set_insumos()">
                 <option value="" selected>Selecciona los insumos</option>
-                <option value="ABILIFY Comp. 10 mg">ABILIFY Comp. 10 mg</option>
-                <option value="ALDOMET Comp. recub. 250 mg">ALDOMET Comp. recub. 250 mg</option>
-                <option value="AMINOPLASMAL L Sol. para perfusión 12,5%">AMINOPLASMAL L Sol. para perfusión 12,5%</option>
-                <option value="DAFLON 500 Comp. recub. 450/50 mg">DAFLON 500 Comp. recub. 450/50 mg</option>
-                <option value="DIOVAN Sol. oral 3 mg/ml">DIOVAN Sol. oral 3 mg/ml</option>
-                <option value="HEPATECT Sol. para perfusión 50 UI/ml">HEPATECT Sol. para perfusión 50 UI/ml</option>
-                <option value="HUBERPLEX Comp. recub. 5 mg">HUBERPLEX Comp. recub. 5 mg</option>
-                <option value="NAPRILENE Comp. 20 mg">NAPRILENE Comp. 20 mg</option>
-                <option value="NITIGRAF EFG Sol. iny. 350 mg/ml">NITIGRAF EFG Sol. iny. 350 mg/ml</option>
-                <option value="ODENIL Crema 2,5 mg/g">ODENIL Crema 2,5 mg/g</option>
-                <option value="OMEPRAZOL NORMON Cáps. dura conteniendo gránulos 40 mg">OMEPRAZOL NORMON Cáps. dura conteniendo gránulos 40 mg</option>
-                <option value="RADIALAR '280' Sol. iny. 60%">RADIALAR "280" Sol. iny. 60%</option>
-                <option value="TAMOXIFENO CINFA EFG Comp. 20 mg">TAMOXIFENO CINFA EFG Comp. 20 mg</option>
-                <option value="TOSEINA Sol. oral 2 mg/ml">TOSEINA Sol. oral 2 mg/ml</option>
-                <option value="VALDISPERT Comp. recub. 125 mg">VALDISPERT Comp. recub. 125 mg</option>
-                <option value="VENOSMIL Cáps. 200 mg">VENOSMIL Cáps. 200 mg</option>
-                <option value="VIRUDERM Pom. 5%">VIRUDERM Pom. 5%</option>
-                <option value="XIFIA Comp. recub. con película 400 mg">XIFIA Comp. recub. con película 400 mg</option>
-                <option value="XUMADOL Comp. 1 g">XUMADOL Comp. 1 g</option>
+                {% for insumo in insumos %}
+                <option value="{{insumo}}">{{insumo}}</option>
+                {% endfor %}
               </select>
 
               <input type="hidden" class="form-control mt-1" name="insumos" required id="id_insumos" readonly>
@@ -118,6 +99,9 @@
               <input type="submit" class="btn btn-primary btn-block" value="Crear pedido" />
             </div>
           
+
+
+
           </div>
         </form>
 

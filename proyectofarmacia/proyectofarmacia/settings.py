@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'pacientes.apps.PacientesConfig',
+    'insumos.apps.InsumosConfig',
     'pedidos.apps.PedidosConfig'
 ]
 

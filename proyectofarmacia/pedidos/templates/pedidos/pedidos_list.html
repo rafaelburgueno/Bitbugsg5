@@ -85,11 +85,13 @@
             <p class="">Despachable: {{pedido.fecha_despachable}}</p>
             <p class="">Retirado por: {{pedido.retirante}} - {{pedido.fecha_despacho}}</p>
 
-            
+            {% if 'pedidos.change_pedidos' in request.user.get_group_permissions and pedido.estado == 'pendiente' %}
             <a href="{% url 'pedidos:procesar' pedido.id %}" class="btn btn-block btn-outline-light">Procesar</a>
-                        
-            <a href="{% url 'pedidos:delete' pedido.id %}" class="btn btn-block btn-outline-warning">Borrar</a>
+            {% endif %}
 
+            {% if 'pedidos.delete_pedidos' in request.user.get_group_permissions %}    
+            <a href="{% url 'pedidos:delete' pedido.id %}" class="btn btn-block btn-outline-warning">Borrar</a>
+            {% endif %}
 
             
 
