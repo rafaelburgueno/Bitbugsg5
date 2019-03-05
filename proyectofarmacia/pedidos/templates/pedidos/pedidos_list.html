@@ -74,19 +74,32 @@
             
           <div class="card-body">
 
-            <ul class="list-group text-dark mb-3">
-              {% for insumo in pedido.insumos_as_list %}
-                <li class="list-group-item">{{insumo}}</li>
-              {% endfor %}
-            </ul>
+            <button type="button" class="btn btn-block btn-outline-light mb-1" data-toggle="collapse" data-target="#{{pedido.id}}-insumos">
+              Insumos <i class="fa fa-sort-desc"></i>
+            </button>
+            <div id="{{pedido.id}}-insumos" class="collapse">
+              <ul class="list-group text-dark mb-3">
+                {% for insumo in pedido.insumos_as_list %}
+                  <li class="list-group-item">{{insumo}}</li>
+                {% endfor %}
+              </ul>
+            </div>
 
-            <p class="">Solicitado por: {{pedido.solicitante}} - {{pedido.created}}</p>
-            <p class="">Procesado por: {{pedido.procesante}} - {{pedido.fecha_procesamiento}}</p>
-            <p class="">Despachable: {{pedido.fecha_despachable}}</p>
-            <p class="">Retirado por: {{pedido.retirante}} - {{pedido.fecha_despacho}}</p>
+
+            <button type="button" class="btn btn-block btn-outline-light mb-1 mt-2" data-toggle="collapse" data-target="#{{pedido.id}}-fechas">
+              Fechas <i class="fa fa-sort-desc"></i>
+            </button>
+            <div id="{{pedido.id}}-fechas" class="collapse">
+              <ul class="list-group text-dark">
+                <li class="list-group-item small p-1">Solicitado por: {{pedido.solicitante}} - {{pedido.created}}</li>
+                <li class="list-group-item small p-1">Procesado por: {{pedido.procesante}} - {{pedido.fecha_procesamiento}}</li>
+                <li class="list-group-item small p-1">Despachable: {{pedido.fecha_despachable}}</li>
+                <li class="list-group-item small p-1">Retirado por: {{pedido.retirante}} - {{pedido.fecha_despacho}}</li>
+              </ul>
+            </div>
 
             {% if 'pedidos.change_pedidos' in request.user.get_group_permissions and pedido.estado == 'pendiente' %}
-            <a href="{% url 'pedidos:procesar' pedido.id %}" class="btn btn-block btn-outline-light">Procesar</a>
+            <a href="{% url 'pedidos:procesar' pedido.id %}" class="btn btn-block btn-outline-light mt-4">Procesar</a>
             {% endif %}
 
             {% if 'pedidos.delete_pedidos' in request.user.get_group_permissions %}    
