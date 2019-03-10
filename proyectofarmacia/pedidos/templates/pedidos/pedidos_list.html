@@ -6,13 +6,13 @@
 {% comment %} {% include 'pedidos/includes/pedidos_menu.html' %} {% endcomment %}
 
 <main role="main">
-  <div class="container mb-4">
+  <div class="container mb-4 pt-2">
 
     {% comment %}
     Mensaje de confirmacion por una edicion exitosa
     {% endcomment %}
     {% if request.GET %}
-      <div class="alert alert-success alert-dismissible fade show desvanecer" role="alert">
+      <div class="alert alert-success alert-dismissible show desvanecer" role="alert">
         {% if 'procesado' in request.GET %}
           El pedido fue procesado correctamente.
         {% elif 'borrado' in request.GET %}
@@ -29,9 +29,9 @@
     {% comment %} las siguientes 'pipes' le dice que campo usar para ordenar los resultados(por urgencia y en reversa: '|dictsort:"urgencia" reversed ') {% endcomment %}
     {% for pedido in pedidos_list %}
 
-      <div class="card text-white bg-info mb-5 shadow-lg" >
+      <div class="card text-white  mb-5 color2" >
         <form>
-          <div class="card-header">
+          <div class="card-headerr p-2">
             {% comment %} <a href="{% url 'pedidos:pedido' pedido.id %}" style="color:white;"> {% endcomment %}
             
             
@@ -71,7 +71,9 @@
             <h4 class="text-center mt-3">{{pedido.cama}} - {{pedido.paciente}}</h4>
 
           </div>
-            
+
+          <hr class="my-0 mx-3">
+          
           <div class="card-body">
 
             <button type="button" class="btn btn-block btn-outline-light mb-1" data-toggle="collapse" data-target="#{{pedido.id}}-insumos">
@@ -97,20 +99,18 @@
                 <li class="list-group-item small p-1">Retirado por: {{pedido.retirante}} - {{pedido.fecha_despacho}}</li>
               </ul>
             </div>
+            
+            <hr class="my-4 mx-0">
 
             {% if 'pedidos.change_pedidos' in request.user.get_group_permissions and pedido.estado == 'pendiente' %}
-            <a href="{% url 'pedidos:procesar' pedido.id %}" class="btn btn-block btn-outline-light mt-4">Procesar</a>
+            <a href="{% url 'pedidos:procesar' pedido.id %}" class="btn btn-block btn-outline-light mx-auto" style="width:70%;">Procesar</a>
             {% endif %}
 
             {% if 'pedidos.delete_pedidos' in request.user.get_group_permissions %}    
-            <a href="{% url 'pedidos:delete' pedido.id %}" class="btn btn-block btn-outline-warning">Borrar</a>
+            <a href="{% url 'pedidos:delete' pedido.id %}" class="btn btn-block btn-outline-warning mx-auto" style="width:70%;">Borrar</a>
             {% endif %}
 
-            
 
-            {% comment %} <p class="card-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius natoque et magnis dis, nascetur ridiculus mus.
-            </p> {% endcomment %}
             
           </div>
 
