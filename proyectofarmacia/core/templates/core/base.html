@@ -8,43 +8,47 @@
     <!-- Fuentes -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,700,700i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat|Raleway|Roboto|Ubuntu" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Raleway|Roboto|Ubuntu|Lato|Suez+One" rel="stylesheet"> 
     <!-- Estilos -->
     <link href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'core/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'core/css/main.css' %}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
-  <body>
-    <body class="bg-light pt-5">
+  {% comment %} <body> {% endcomment %}
+  <body class="bg-light pt-5 pb-5">
+
       <!-- Navegación -->
-      <nav class="navbar navbar-expand-lg navbar-dark  fixed-top color2" style="border-bottom: solid lightgrey 1px;">
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top color2" style="border-bottom: solid lightgrey 1px;">
         <div class="container">
-          <a class="navbar-brand" href="{% url 'home' %}">Pedidos Farmacia</a>
+          <a class="navbar-brand fuente-logo" href="{% url 'home' %}">FARMAQUICK</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ned" aria-controls="ned" aria-expanded="false">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="ned">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'home' %}">Inicio</a>
+              <li class="nav-item {% if request.path == '/' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'home' %}"><i class="fa fa-lg fa-home d-lg-none"></i> Inicio</a>
               </li>
 
               {% if request.user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'pedidos:pedidos' %}">Pedidos</a>
+              <li class="nav-item {% if request.path == '/pedidos/' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'pedidos:pedidos' %}"><i class="fa fa-lg fa-address-card-o d-lg-none"></i> Pedidos</a>
               </li>
               {% endif %}
 
               {% if 'pedidos.add_pedidos' in request.user.get_group_permissions %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'pedidos:crear' %}">Crear pedido</a>
+                <li class="nav-item {% if request.path == '/pedidos/crear/' %}active{% endif %}">
+                  <a class="nav-link" href="{% url 'pedidos:crear' %}"><i class="fa fa-lg fa-pencil-square-o d-lg-none"></i> Crear pedido</a>
                 </li>
               {% endif %}
               
               {% if request.user.is_authenticated %}
+              <li class="nav-item {% if request.path == '/archivo/' %}active{% endif %}">
+                <a class="nav-link" href="#"><i class="fa fa-lg fa-archive d-lg-none"></i> Archivo</a>
+              </li>
               <li class="nav-item">
-                <a class="nav-link" href="/admin/">Admin</a>
+                <a class="nav-link" href="/admin/"><i class="fa fa-lg fa-gear d-lg-none"></i> Admin</a>
               </li>
               {% endif %}
             </ul>
@@ -52,8 +56,8 @@
 
 
               {% if not request.user.is_authenticated %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'login' %}">Acceder</a>
+                <li class="nav-item {% if request.path == '/accounts/login/' %}active{% endif %}">
+                  <a class="nav-link" href="{% url 'login' %}"><i class="fa fa-lg fa-sign-in d-lg-none"></i> Acceder</a>
                 </li>
               {% else %}
                 <li class="nav-item">
@@ -61,7 +65,7 @@
                 </li>
                 
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'logout' %}">Salir</a>
+                  <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-lg fa-sign-out d-lg-none"></i> Salir</a>
                 </li>
               {% endif %}
             
@@ -72,9 +76,47 @@
       </nav>
       <!-- Contenido -->
       {% block content %}{% endblock %}
+
+      <!--MENU INFERIOR-->
+      {% if request.user.is_authenticated %}
+      <div class="fixed-bottom color2" style="border-top: solid lightgrey 1px;">
+        <ul class="nav justify-content-center">
+          <li class="nav-item mx-auto">
+            <a class="nav-link btn-menu-inferior {% if request.path == '/' %}btn-active{% endif %}" href="{% url 'home' %}">
+              <i class="fa fa-lg fa-home"></i>
+            </a>
+          </li>
+          <li class="nav-item mx-auto">
+            <a class="nav-link btn-menu-inferior {% if request.path == '/pedidos/' %}btn-active{% endif %}" href="{% url 'pedidos:pedidos' %}">
+              <i class="fa fa-lg fa-address-card-o"></i>
+            </a>
+          </li>
+          <li class="nav-item mx-auto">
+            <a class="nav-link btn-menu-inferior {% if request.path == '/pedidos/crear/' %}btn-active{% endif %}" href="{% url 'pedidos:crear' %}">
+              <i class="fa fa-lg fa-pencil-square-o"></i>
+            </a>
+          </li>
+          {% comment %} <li class="nav-item mx-auto">
+            <a class="nav-link" href="#"><i class="btn-menu-inferior fa fa-lg fa-gear"></i></a>
+          </li> {% endcomment %}
+          <li class="nav-item mx-auto">
+            <a class="nav-link btn-menu-inferior {% if request.path == '/archivo/' %}btn-active{% endif %}" href="#">
+              <i class="fa fa-lg fa-archive"></i>
+            </a>
+          </li>
+          <li class="nav-item mx-auto">
+            <a class="nav-link btn-menu-inferior" href="{{ request.path }}">
+              <i class="fa fa-lg fa-refresh"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+      {% endif %}
+
       <!-- Javascript -->
       <script src="{% static 'core/vendor/jquery/jquery.min.js' %}"></script>
       <script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
       <script src="{% static 'core/js/main.js' %}"></script>
+
   </body>
 </html>

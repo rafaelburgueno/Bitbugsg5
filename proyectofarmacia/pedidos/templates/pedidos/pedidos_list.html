@@ -39,11 +39,11 @@
             Visualiza la urgencia del pedido (rutina, urgente)
             {% endcomment %}
             {% if pedido.urgencia == 'no urgente' %}
-              <span class="badge badge-success float-left">Rutina</span>
+              <span class="badge badge-success float-left">rutina</span>
             {% elif pedido.urgencia == 'urgente' %}
-              <span class="badge badge-danger float-left">Urgente</span>
+              <span class="badge badge-danger float-left">urgente</span>
             {% else %}
-              <span class="badge badge-warning float-left">Modificado</span>
+              <span class="badge badge-warning float-left">modificado</span>
             {% endif %}
 
 
@@ -62,13 +62,13 @@
             {% comment %}
             Visualiza el id del pedido (podria ocultarse, no es muy relevante)
             {% endcomment %}
-            <p class="text-center"><span class="badge badge-pill badge-light">id:{{pedido.id}}</span></p>
+            <p class="text-center"><span class="badge badge-pill badge-secondary">id:{{pedido.id}}</span></p>
 
 
             {% comment %}
             Visualiza la sala, la cama y el nombre del paciente
             {% endcomment %}
-            <h4 class="text-center mt-3">{{pedido.cama}} - {{pedido.paciente}}</h4>
+            <h6 class="text-center mt-3">{{pedido.cama}} - {{pedido.paciente}}</h6>
 
           </div>
 

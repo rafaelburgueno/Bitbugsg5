@@ -37,10 +37,10 @@
           {% endcomment %}
           <div class="form-group text-center">
             <div class="btn-group btn-group-toggle mx-auto" data-toggle="buttons">
-              <label class="btn btn-outline-light" for="id_urgencia">
+              <label class="btn btn-outline-danger" for="id_urgencia">
                 <input type="radio" name="urgencia" id="id_urgencia" autocomplete="off" value="urgente"> Urgente
               </label>
-              <label class="btn btn-outline-light active" for="id_urgencia2">
+              <label class="btn btn-outline-success active" for="id_urgencia2">
                 <input type="radio" name="urgencia" id="id_urgencia2" autocomplete="off" value="no urgente" checked> No urgente
               </label>
             </div>
@@ -161,9 +161,9 @@ function enviar(){
   for(var i = 0; i<insumos.length;i++){
     //console.log(insumos[i].innerHTML);
     if(texto == ''){
-      texto += insumos[i].innerHTML + " -- X " + cantidad[i].innerHTML + " Unidades";
+      texto += insumos[i].innerHTML + " | x " + cantidad[i].innerHTML + " u.";
     }else{
-      texto += ";" + insumos[i].innerHTML + " -- X " + cantidad[i].innerHTML + " Unidades";
+      texto += ";" + insumos[i].innerHTML + " | x " + cantidad[i].innerHTML + " u.";
     }
 
   }

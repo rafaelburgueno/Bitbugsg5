@@ -73,6 +73,13 @@ MIS ESTILOS
     border-color: var(--c1);
 }
 
+.color2trans {
+    background-color: var(--c3);
+    color: var(--c1) !important;
+    border-color: var(--c1);
+    opacity: 0.9;
+}
+
 .color3 {
     background-color: var(--c2);
     color: var(--c5) !important;
@@ -85,12 +92,73 @@ MIS ESTILOS
     border-color: var(--c5);
 }
 
+.btn-menu-inferior {
+    color: #ccc;
+}
+
+.btn-menu-inferior:hover {
+    color: #ddd;
+}
+
+.btn-active {
+    color: #ffa;
+}
+
 * {
-    font-family: 'Montserrat', sans-serif;
+    /* font-family: 'Suez One', serif; */
+    font-family: 'Lato', sans-serif;
+    /* font-family: 'Montserrat', sans-serif; */
     /* font-family: 'Ubuntu', sans-serif; */
     /* font-family: 'Roboto', sans-serif; */
     /* font-family: 'Raleway', sans-serif; */
 }
+
+.fuente-logo {
+    padding: 0px 10px;
+    font-family: 'Suez One', serif;
+    border: solid #ddddddcc 1px;
+}
+
+.fuente-logo {
+    box-shadow: none;
+    transform: rotate(0);
+    position: relative;
+}
+
+.fuente-logo::before {
+    content: "";
+    position: absolute;
+    border: 1px solid #dddddd88;
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    left: 1px;
+    opacity: 0;
+    transition: 1s;
+}
+
+.fuente-logo::after {
+    content: "";
+    position: absolute;
+    border: 1px solid #dddddd44;
+    top: 3px;
+    right: 3px;
+    bottom: 3px;
+    left: 3px;
+    transition: 1s;
+    opacity: 0;
+}
+
+.fuente-logo:hover::before,
+.fuente-logo:hover::after {
+    opacity: 1;
+    border-radius: 0px;
+}
+
+
+/*
+
+*/
 
 body {
     background-image: linear-gradient(to right, #ccc, #eee);
@@ -111,8 +179,18 @@ body {
 }
 
 .badge {
-    font-size: 1em;
+    font-size: 0.9em;
     padding: 7px;
+}
+
+.badge-danger,
+.badge-warning,
+.badge-success {
+    border-radius: 0;
+}
+
+.badge-pill {
+    font-size: 0.7em;
 }
 
 .btn {
@@ -135,7 +213,52 @@ body {
 }
 
 .badge-danger,
-.btn-dangerr {
+.btn-danger {
     color: #eee !important;
     background-color: #fd6170bb !important;
+}
+
+
+/*colores en el selector de urgencia*/
+
+
+/*aca esta en no seleccionado*/
+
+.btn-outline-success,
+.btn-outline-danger {
+    color: #ccc;
+    background-color: transparent;
+    background-image: none;
+    border-color: #ccc;
+}
+
+.btn-outline-success:hover {
+    color: #eee;
+    background-color: #28a74688;
+    border-color: #28a74688;
+}
+
+.btn-outline-danger:hover {
+    color: #eee;
+    background-color: #fd617088;
+    border-color: #fd617088;
+}
+
+
+/*aca esta seleccionado*/
+
+.btn-outline-success:not(:disabled):not(.disabled):active,
+.btn-outline-success:not(:disabled):not(.disabled).active,
+.show>.btn-outline-success.dropdown-toggle {
+    color: #fff;
+    background-color: #28a746bb;
+    border-color: #28a746bb;
+}
+
+.btn-outline-danger:not(:disabled):not(.disabled):active,
+.btn-outline-danger:not(:disabled):not(.disabled).active,
+.show>.btn-outline-danger.dropdown-toggle {
+    color: #fff;
+    background-color: #fd6170bb;
+    border-color: #fd6170bb;
 }
