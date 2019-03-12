@@ -1,0 +1,125 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Retirar pedido{% endblock %}
+{% block content %}
+{% comment %} {% include 'pedidos/includes/pedidos_menu.html'%} {% endcomment %}
+<main role="main">
+  <div class="container">
+
+
+    <div class="card text-white mb-5 color2" >
+      
+      <div class="card-headerr p-2">
+        
+        {% comment %} 
+        Visualiza la urgencia del pedido (rutina, urgente)
+        {% endcomment %}
+        {% if pedidos.urgencia == 'no urgente' %}
+          <span class="badge badge-success float-left">Rutina</span>
+        {% elif pedidos.urgencia == 'urgente' %}
+          <span class="badge badge-danger float-left">Urgente</span>
+        {% else %}
+          <span class="badge badge-warning float-left">Modificado</span>
+        {% endif %}
+
+
+        {% comment %} 
+        Visualizar el estado del pedido (pendiente, en proceso o para retirar)
+        #####################################
+        hay que hacer una llamada asincrona para cambiar el estado a 'en proceso' mientras se esta procesando
+        #####################################
+        {% endcomment %}
+        <span class="badge badge-success float-right">{{pedidos.estado}}</span>
+
+
+        {% comment %}
+        Visualiza el id del pedido (podria ocultarse, no es muy relevante)
+        {% endcomment %}
+        <p class="text-center"><span class="badge badge-pill badge-light">id:{{pedidos.id}}</span></p>
+
+
+        {% comment %}
+        Visualiza la sala, la cama y el nombre del paciente
+        {% endcomment %}
+        <h6 class="text-center mt-3">{{pedidos.cama}} - {{pedidos.paciente}}</h6>
+
+      </div>
+      
+      <hr class="my-0 mx-3">
+
+      <form action="" method="post" onsubmit="return seteos_despachar_onsubmit()">{% csrf_token %}
+      {% comment %} {{ form.as_p }} {% endcomment %}
+
+        <div class="card-body">
+          
+          <ul class="list-group text-dark mb-4">
+
+            {% for insumo in pedidos.insumos_as_list %}    
+              <li class="list-group-item ">{{insumo}}</li>
+            {% endfor %}
+          
+          </ul>
+      
+      
+          {% comment %}
+          django establece el siguiente input con el nombre usuario que accede
+          {% endcomment %}
+          {% comment %} <div class="form-group">
+            <label for="id_procesante">Procesado:</label>  {% endcomment %}
+            {% comment %} <input type="hidden" class="" name="procesante" value="{{pedidos.procesante}}" id="id_procesante" readonly> {% endcomment %}
+            <input type="hidden" class="" name="fecha_despacho" id="id_fecha_despacho" value="{% now "DATETIME_FORMAT" %}" readonly>
+            <input type="hidden" class="" name="retirante" value="alguien" readonly>
+            <input type="hidden" class="" name="estado" value="retirado" readonly>
+          {% comment %} </div> {% endcomment %}
+      
+
+          {% comment %} <div class="form-group">
+            <label for="id_fecha_despachable">Fecha despachable:</label>  {% endcomment %}
+            {% comment %} <input type="hidden" class="" name="fecha_despachable" id="id_fecha_despacho" value="{{pedidos.fecha_despachable}}" readonly> {% endcomment %}
+          {% comment %} </div> {% endcomment %}
+
+          
+
+
+
+          <div class="text-center">
+            <input type="submit" class="btn btn-block btn-outline-light mx-auto" style="width:70%;" value="Retirar pedido" />
+          </div>
+  
+        </div>
+      </form>
+
+    </div>
+
+
+<script>
+  function seteos_despachar_onsubmit() {
+    
+    var d = new Date();
+    var fecha = d.toLocaleDateString()+' '+d.toLocaleTimeString();
+    document.getElementById("id_fecha_despacho").value = fecha;
+
+    //document.getElementById("id_estado").value = 'para retirar';
+    
+    //confirm("ejecutando la funcion onsubmit ;D");
+  }
+</script>
+
+
+{% comment %} <div class=""> {% endcomment %}
+{% comment %} {% now "DATETIME_FORMAT" %} {% endcomment %}
+{% comment %} {{pedidos.created}}
+</div> {% endcomment %}
+          
+          
+
+
+
+
+
+
+
+
+  </div>
+</main>
+{% endblock %}

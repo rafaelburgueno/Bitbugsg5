@@ -15,6 +15,8 @@
       <div class="alert alert-success alert-dismissible show desvanecer" role="alert">
         {% if 'procesado' in request.GET %}
           El pedido fue procesado correctamente.
+        {% elif 'retirado' in request.GET %}
+          El pedido fue retirado correctamente.
         {% elif 'borrado' in request.GET %}
           El pedido fue borrado correctamente.
         {% endif %}
@@ -28,7 +30,7 @@
 
     {% comment %} las siguientes 'pipes' le dice que campo usar para ordenar los resultados(por urgencia y en reversa: '|dictsort:"urgencia" reversed ') {% endcomment %}
     {% for pedido in pedidos_list %}
-
+    {% if  pedido.estado != 'retirado'%}
       <div class="card text-white  mb-5 color2" >
         <form>
           <div class="card-headerr p-2">
@@ -55,6 +57,8 @@
             {% elif pedido.estado == 'en proceso' %}
             <span class="badge badge-warning float-right">{{pedido.estado}}</span>
             {% elif pedido.estado == 'para retirar' %}
+            <span class="badge badge-success float-right">{{pedido.estado}}</span>
+            {% elif pedido.estado == 'retirado' %}
             <span class="badge badge-success float-right">{{pedido.estado}}</span>
             {% endif %}
 
@@ -106,6 +110,10 @@
             <a href="{% url 'pedidos:procesar' pedido.id %}" class="btn btn-block btn-outline-light mx-auto" style="width:70%;">Procesar</a>
             {% endif %}
 
+            {% if 'pedidos.add_pedidos' in request.user.get_group_permissions and pedido.estado == 'para retirar' %}
+              <a href="{% url 'pedidos:retirar' pedido.id %}" class="btn btn-block btn-outline-light mx-auto" style="width:70%;">Retirar</a>
+            {% endif %}
+
             {% if 'pedidos.delete_pedidos' in request.user.get_group_permissions %}    
             <a href="{% url 'pedidos:delete' pedido.id %}" class="btn btn-block btn-outline-warning mx-auto" style="width:70%;">Borrar</a>
             {% endif %}
@@ -118,7 +126,7 @@
 
       </div>
 
-
+    {% endif %}
     {% endfor %}
   </div>
 </main>

@@ -7,9 +7,9 @@
   <div class="container">
 
 
-    <div class="card text-white bg-info mb-5 shadow-lg" >
+    <div class="card text-white mb-5 color2" >
       
-      <div class="card-header">
+      <div class="card-headerr p-2">
         
         {% comment %} 
         Visualiza la urgencia del pedido (rutina, urgente)
@@ -47,10 +47,11 @@
         {% comment %}
         Visualiza la sala, la cama y el nombre del paciente
         {% endcomment %}
-        <h4 class="text-center mt-3">{{pedidos.cama}} - {{pedidos.paciente}}</h4>
+        <h6 class="text-center mt-3">{{pedidos.cama}} - {{pedidos.paciente}}</h6>
 
       </div>
 
+      <hr class="my-0 mx-3">
 
       <form action="" method="post" onsubmit="return seteos_despachable_onsubmit()">{% csrf_token %}
       {% comment %} {{ form.as_p }} {% endcomment %}

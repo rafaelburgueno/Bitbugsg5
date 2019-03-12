@@ -101,6 +101,9 @@ class PedidoCreate(CreateView):
     ########################################
 
 
+##############################
+#       PROCESAR PEDIDO
+##############################
 class PedidosUpdate(UpdateView):
     model = Pedidos
     #fields = ['procesante','estado','fecha_procesamiento','fecha_despachable']
@@ -138,6 +141,52 @@ class PedidosUpdate(UpdateView):
         #print(self.request.user.username)
         return super().form_valid(form)
     ########################################
+
+
+
+##############################
+#       RETIRAR PEDIDO       #
+##############################
+class PedidosRetirar(UpdateView):
+    model = Pedidos
+    #fields = ['procesante','estado','fecha_procesamiento','fecha_despachable']
+    fields = ['retirante','estado','fecha_despacho']
+    template_name_suffix = '_retirar'
+    
+    #success_url = reverse_lazy('pedidos:procesar')
+    def get_success_url(self):
+        #return reverse_lazy('pedidos:procesar', args=[self.object.id]) + '?ok'
+        return reverse_lazy('pedidos:pedidos') + '?retirado'
+    
+
+    def dispatch(self, request, *args, **kwargs):
+        
+        if request.user.is_authenticated:
+            if 'sala' in request.user.groups.values_list('name', flat=True):
+                return super(PedidosRetirar, self).dispatch(request, *args, **kwargs)
+            else:
+                return redirect(reverse_lazy('home') + '?solo_para_usuarios_de_sala')
+        else:
+            return redirect(reverse_lazy('login') + '?debe_autentificarse_para_poder_acceder')
+        
+        # if not request.user.is_authenticated:
+        #     return redirect(reverse_lazy('login'))
+        # return super(PedidosUpdate, self).dispatch(request, *args, **kwargs)
+
+
+    ########################################
+    # VALIDAR FORMULARIOS
+    def form_valid(self, form):
+        if self.request.user.get_full_name():
+            form.instance.retirante = self.request.user.get_full_name()
+        else:
+            form.instance.retirante = self.request.user.username
+        #imprime la etiqueta de 'retirado' en el estado del pedido
+        form.instance.estado = 'retirado'
+        #print(self.request.user.username)
+        return super().form_valid(form)
+    ########################################
+
 
 
 
