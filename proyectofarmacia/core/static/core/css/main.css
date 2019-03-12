@@ -117,6 +117,7 @@ MIS ESTILOS
     padding: 0px 10px;
     font-family: 'Suez One', serif;
     border: solid #ddddddcc 1px;
+    border-radius: 3px;
 }
 
 .fuente-logo {
@@ -133,6 +134,7 @@ MIS ESTILOS
     right: 1px;
     bottom: 1px;
     left: 1px;
+    border-radius: 3px;
     opacity: 0;
     transition: 1s;
 }
@@ -145,6 +147,7 @@ MIS ESTILOS
     right: 3px;
     bottom: 3px;
     left: 3px;
+    border-radius: 3px;
     transition: 1s;
     opacity: 0;
 }
@@ -152,7 +155,7 @@ MIS ESTILOS
 .fuente-logo:hover::before,
 .fuente-logo:hover::after {
     opacity: 1;
-    border-radius: 0px;
+    border-radius: 3px;
 }
 
 

@@ -1,0 +1,74 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Archivo de pedidos{% endblock %}
+{% block content %}
+
+{% comment %} {% include 'pedidos/includes/pedidos_menu.html' %} {% endcomment %}
+
+<main role="main">
+  <div class="container mb-4 pt-2">
+
+
+
+    {% comment %} las siguientes 'pipes' le dice que campo usar para ordenar los resultados(por urgencia y en reversa: '|dictsort:"urgencia" reversed ') {% endcomment %}
+    {% for pedido in pedidos_list|dictsort:"created" reversed %}
+
+      <div class="card text-white  mb-5 color2" >
+        <form>
+        
+          <div class="card-header">
+            <h2 class="text-center">ID {{pedido.id}}</h2>
+          </div>
+
+          <div class="card-body">
+            <table class="table table-hover text-center">
+          
+              {% comment %} <tr><td class="">Codigo identificador: {{pedido.id}}.</td></tr> {% endcomment %}
+              
+              <tr><td class="">Retirado el {{pedido.fecha_despacho}} por {{pedido.retirante}}.</td></tr>
+
+              <tr><td class="">Creado el {{pedido.created}} por {{pedido.solicitante}}.</td></tr>
+
+              <tr><td class="">Procesado el {{pedido.fecha_procesamiento}} por {{pedido.procesante}}.</td></tr>
+
+              <tr><td class="">Despachable desde el {{pedido.fecha_despachable}}.</td></tr>
+
+              <tr><td class="">Urgencia: {{pedido.urgencia}}.</td></tr>
+
+              <tr><td class="">Estado: {{pedido.estado}}.</td></tr>
+
+              <tr><td class="">Paciente: {{pedido.paciente}}.</td></tr>
+
+              <tr><td class="">Cama {{pedido.cama}}.</td></tr>
+              
+              <tr>
+                <td class="">
+                  <button type="button" class="btn btn-outline-light" data-toggle="collapse" data-target="#{{pedido.id}}-insumos">
+                    Insumos <i class="fa fa-sort-desc"></i>
+                  </button>
+                  <div id="{{pedido.id}}-insumos" class="collapse">
+                    <ul class="list-group text-dark mb-2">
+                      {% for insumo in pedido.insumos_as_list %}
+                        <li class="list-group-item">{{insumo}}</li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              
+            </table>
+          </div>
+
+          <a href="#" class="btn btn-block btn-outline-light mx-auto mb-3" style="width:70%;">Imprimir el pedido</a>
+            
+        </form>
+      </div>
+    {% endfor %}
+
+  </div>
+</main>
+{% endblock %}
+
+
+
+
