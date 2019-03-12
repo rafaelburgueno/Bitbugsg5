@@ -39,6 +39,19 @@ class PedidoListView(ListView):
         return super(PedidoListView, self).dispatch(request, *args, **kwargs)
 
 
+# vista de archivo
+class ArchivoListView(ListView):
+    model = Pedidos
+    template_name_suffix = '_archivo'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(reverse_lazy('login'))
+        
+        return super(ArchivoListView, self).dispatch(request, *args, **kwargs)
+
+
+
 class PedidoDetailView(DetailView):
     model = Pedidos
     
