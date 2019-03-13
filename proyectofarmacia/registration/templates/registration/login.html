@@ -26,6 +26,8 @@
         {% comment %} <img src="{% static 'core/img/logo.jpg' %}" class=""> {% endcomment %}
         <h1 class="fuente-logo" >FARMAQUICK</h1>
 
+        {% comment %} <hr class="my-0 mx-3"> {% endcomment %}
+
         <form action="" method="post">{% csrf_token %}
           <h3 class="mb-4">Iniciar sesión</h3>
           {% if form.non_field_errors %}

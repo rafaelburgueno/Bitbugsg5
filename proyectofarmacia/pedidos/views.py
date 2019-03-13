@@ -212,3 +212,8 @@ class PedidosDelete(DeleteView):
 # def pedido(request, pedido_id, pedido_slug):
 #     pedido = get_object_or_404(Pedidos, id=pedido_id)
 #     return render(request, 'pedidos/pedidos_detail.html', {'pedido':pedido})
+
+
+#vista para retirar pedidos de forma asincrona
+# def retirar(request, pk):
+#     pass
