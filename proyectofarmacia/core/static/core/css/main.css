@@ -267,3 +267,7 @@ body {
     background-color: #fd6170bb;
     border-color: #fd6170bb;
 }
+
+.btn-desplegable {
+    border-radius: 10px 10px 0 0;
+}

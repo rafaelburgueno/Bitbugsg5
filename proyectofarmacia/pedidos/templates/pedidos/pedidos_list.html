@@ -85,9 +85,9 @@
           
           <div class="card-body">
             
-            <div class="">
-              <button type="button" class="btn btn-outline-light mb-1" data-toggle="collapse" data-target="#{{pedido.id}}-insumos">
-                Insumos <i class="fa fa-sort-desc"></i>
+            <div class="mt-2">
+              <button type="button" class="btn btn-outline-light mb-1 btn-block mx-auto btn-desplegable py-2" style="width:40%;" data-toggle="collapse" data-target="#{{pedido.id}}-insumos">
+                <i class="fa fa-sort-desc"></i> Insumos <i class="fa fa-sort-desc"></i>
               </button>
               <div id="{{pedido.id}}-insumos" class="collapse">
                 <ul class="list-group text-dark mb-3">
@@ -98,9 +98,9 @@
               </div>
             </div>
 
-            <div class="">
-              <button type="button" class="btn btn-outline-light mb-1 mt-2" data-toggle="collapse" data-target="#{{pedido.id}}-fechas">
-                Fechas <i class="fa fa-sort-desc"></i>
+            <div class="my-4">
+              <button type="button" class="btn btn-outline-light mb-1 btn-block mx-auto btn-desplegable py-2" style="width:40%;" data-toggle="collapse" data-target="#{{pedido.id}}-fechas">
+                <i class="fa fa-sort-desc"></i> Fechas <i class="fa fa-sort-desc"></i>
               </button>
               <div id="{{pedido.id}}-fechas" class="collapse">
                 <ul class="list-group text-dark">
@@ -120,7 +120,7 @@
 
             {% if 'pedidos.add_pedidos' in request.user.get_group_permissions and pedido.estado == 'para retirar' %}
               {% comment %} <a href="{% url 'pedidos:retirar' pedido.id %}" class="btn btn-block btn-outline-light mx-auto" style="width:70%;">Retirar</a> {% endcomment %}
-              <a onclick="retirar_asinc(this)" data-retirar-id="{{pedido.id}}" class="btn btn-block btn-outline-light mx-auto" style="width:70%;">Retirar pedido {{pedido.id}}</a>
+              <a onclick="retirar_asinc(this)" data-retirar-id="{{pedido.id}}" class="btn btn-block btn-outline-light mx-auto" style="width:70%;">Retirar pedido id:{{pedido.id}}</a>
             {% endif %}
 
             {% if 'pedidos.delete_pedidos' in request.user.get_group_permissions %}    
