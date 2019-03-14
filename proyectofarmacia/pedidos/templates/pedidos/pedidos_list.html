@@ -33,75 +33,83 @@
     {% if  pedido.estado != 'retirado'%}
       <div class="card text-white  mb-5 color2" >
         <form>
-          <div class="card-headerr p-2">
+          <div class="px-2 pt-2 row">
             {% comment %} <a href="{% url 'pedidos:pedido' pedido.id %}" style="color:white;"> {% endcomment %}
             
-            
+            {% comment %}
+            Visualiza el id del pedido (podria ocultarse, no es muy relevante)
+            {% endcomment %}
+            <div class="col text-center"><span class="badge badge-pill badge-secondary">id:{{pedido.id}}</span></div>
+
+
             {% comment %} 
             Visualiza la urgencia del pedido (rutina, urgente)
             {% endcomment %}
+            <div class="col text-center">
             {% if pedido.urgencia == 'no urgente' %}
-              <span class="badge badge-success float-left">rutina</span>
+              <span class="badge badge-success">rutina</span>
             {% elif pedido.urgencia == 'urgente' %}
-              <span class="badge badge-danger float-left">urgente</span>
+              <span class="badge badge-danger">urgente</span>
             {% else %}
-              <span class="badge badge-warning float-left">modificado</span>
+              <span class="badge badge-warning">modificado</span>
             {% endif %}
+            </div>
 
 
             {% comment %} 
             Visualizar el estado del pedido (pendiente, en proceso o para retirar)
             {% endcomment %}
+            <div class="col text-center">
             {% if pedido.estado == 'pendiente' %}
-            <span class="badge badge-danger float-right">{{pedido.estado}}</span>
+            <span id="{{pedido.id}}-estado" class="badge badge-danger">{{pedido.estado}}</span>
             {% elif pedido.estado == 'en proceso' %}
-            <span class="badge badge-warning float-right">{{pedido.estado}}</span>
+            <span id="{{pedido.id}}-estado" class="badge badge-warning">{{pedido.estado}}</span>
             {% elif pedido.estado == 'para retirar' %}
-            <span class="badge badge-success float-right">{{pedido.estado}}</span>
+            <span id="{{pedido.id}}-estado" class="badge badge-success">{{pedido.estado}}</span>
             {% elif pedido.estado == 'retirado' %}
-            <span class="badge badge-success float-right">{{pedido.estado}}</span>
+            <span id="{{pedido.id}}-estado" class="badge badge-success">{{pedido.estado}}</span>
             {% endif %}
+            </div>
+            
 
-
-            {% comment %}
-            Visualiza el id del pedido (podria ocultarse, no es muy relevante)
-            {% endcomment %}
-            <p class="text-center"><span class="badge badge-pill badge-secondary">id:{{pedido.id}}</span></p>
-
+          </div>
+            
 
             {% comment %}
             Visualiza la sala, la cama y el nombre del paciente
             {% endcomment %}
             <h6 class="text-center mt-3">{{pedido.cama}} - {{pedido.paciente}}</h6>
 
-          </div>
 
           <hr class="my-0 mx-3">
           
           <div class="card-body">
-
-            <button type="button" class="btn btn-block btn-outline-light mb-1" data-toggle="collapse" data-target="#{{pedido.id}}-insumos">
-              Insumos <i class="fa fa-sort-desc"></i>
-            </button>
-            <div id="{{pedido.id}}-insumos" class="collapse">
-              <ul class="list-group text-dark mb-3">
-                {% for insumo in pedido.insumos_as_list %}
-                  <li class="list-group-item">{{insumo}}</li>
-                {% endfor %}
-              </ul>
+            
+            <div class="">
+              <button type="button" class="btn btn-outline-light mb-1" data-toggle="collapse" data-target="#{{pedido.id}}-insumos">
+                Insumos <i class="fa fa-sort-desc"></i>
+              </button>
+              <div id="{{pedido.id}}-insumos" class="collapse">
+                <ul class="list-group text-dark mb-3">
+                  {% for insumo in pedido.insumos_as_list %}
+                    <li class="list-group-item">{{insumo}}</li>
+                  {% endfor %}
+                </ul>
+              </div>
             </div>
 
-
-            <button type="button" class="btn btn-block btn-outline-light mb-1 mt-2" data-toggle="collapse" data-target="#{{pedido.id}}-fechas">
-              Fechas <i class="fa fa-sort-desc"></i>
-            </button>
-            <div id="{{pedido.id}}-fechas" class="collapse">
-              <ul class="list-group text-dark">
-                <li class="list-group-item small p-1">Solicitado por: {{pedido.solicitante}} - {{pedido.created}}</li>
-                <li class="list-group-item small p-1">Procesado por: {{pedido.procesante}} - {{pedido.fecha_procesamiento}}</li>
-                <li class="list-group-item small p-1">Despachable: {{pedido.fecha_despachable}}</li>
-                <li class="list-group-item small p-1">Retirado por: {{pedido.retirante}} - {{pedido.fecha_despacho}}</li>
-              </ul>
+            <div class="">
+              <button type="button" class="btn btn-outline-light mb-1 mt-2" data-toggle="collapse" data-target="#{{pedido.id}}-fechas">
+                Fechas <i class="fa fa-sort-desc"></i>
+              </button>
+              <div id="{{pedido.id}}-fechas" class="collapse">
+                <ul class="list-group text-dark">
+                  <li class="list-group-item small p-1">Solicitado por: {{pedido.solicitante}} - {{pedido.created}}</li>
+                  <li class="list-group-item small p-1">Procesado por: {{pedido.procesante}} - {{pedido.fecha_procesamiento}}</li>
+                  <li class="list-group-item small p-1">Despachable: {{pedido.fecha_despachable}}</li>
+                  <li class="list-group-item small p-1">Retirado por: {{pedido.retirante}} - {{pedido.fecha_despacho}}</li>
+                </ul>
+              </div>
             </div>
             
             <hr class="my-4 mx-0">
@@ -111,7 +119,8 @@
             {% endif %}
 
             {% if 'pedidos.add_pedidos' in request.user.get_group_permissions and pedido.estado == 'para retirar' %}
-              <a href="{% url 'pedidos:retirar' pedido.id %}" class="btn btn-block btn-outline-light mx-auto" style="width:70%;">Retirar</a>
+              {% comment %} <a href="{% url 'pedidos:retirar' pedido.id %}" class="btn btn-block btn-outline-light mx-auto" style="width:70%;">Retirar</a> {% endcomment %}
+              <a onclick="retirar_asinc(this)" data-retirar-id="{{pedido.id}}" class="btn btn-block btn-outline-light mx-auto" style="width:70%;">Retirar pedido {{pedido.id}}</a>
             {% endif %}
 
             {% if 'pedidos.delete_pedidos' in request.user.get_group_permissions %}    
@@ -130,6 +139,40 @@
     {% endfor %}
   </div>
 </main>
+
+
+<script>
+
+
+function retirar_asinc(boton){
+  var id = boton.getAttribute("data-retirar-id");
+
+  // console.log(boton.getAttribute("data-retirar-id"));
+  console.log(id+'/retirar_asinc/')
+  fetch(id+'/retirar_asinc/', {'credentials':'include'}).then(response => response.json()).then(function(data){
+    console.log(data.respuesta);
+
+    badge_de_estado = document.getElementById(id+'-estado');
+    badge_de_estado.innerHTML = 'retirado';
+    boton.remove();
+    //boton.innerHTML = 'retirado';
+    //boton.setAttribute("onclick", "alert('no se puede relizar esa accion');");
+
+  })
+
+
+}
+
+
+
+
+
+
+
+</script>
+
+
+
 {% endblock %}
 
 

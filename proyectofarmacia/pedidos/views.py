@@ -2,7 +2,7 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 
 # el siguiente import no es necesario en vistas basadas en clases
 #from django.shortcuts import render, get_object_or_404, get_list_or_404
@@ -10,6 +10,8 @@ from django.shortcuts import redirect
 from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
+from django.http import JsonResponse, Http404
+from datetime import datetime
 
 from .models import Pedidos
 from pacientes.models import Paciente
@@ -35,7 +37,7 @@ class PedidoListView(ListView):
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect(reverse_lazy('login'))
-        
+
         return super(PedidoListView, self).dispatch(request, *args, **kwargs)
 
 
@@ -215,5 +217,33 @@ class PedidosDelete(DeleteView):
 
 
 #vista para retirar pedidos de forma asincrona
-# def retirar(request, pk):
-#     pass
+def retirar_asincrono(request, pk):
+    
+    #print("llego la peticion para retirar el id ",pk)
+    respuesta = 'se intenta retirar el pedido '+str(pk)
+    fecha_despacho = str(datetime.now())[:-7]
+
+    if request.user.is_authenticated:
+        #print("el pasiente es: ", pedido.paciente)
+        retirante = ''
+        if request.user.get_full_name():
+            retirante = request.user.get_full_name()
+        else:
+            retirante = request.user.username
+        
+        print('el retirante es ',retirante)
+        
+        #primer metodo para actualizar ma base de datos
+        #pedido = get_object_or_404(Pedidos, pk=pk)
+        #pedido.estado = 'retirado'
+        #pedido.save()
+
+        #segundo metodo para actualizar la base de datos
+        pedido = Pedidos.objects.filter(id=pk).update(estado='retirado', retirante=retirante, fecha_despacho=fecha_despacho)
+
+
+        respuesta = 'la pedido '+str(pk)+' fue retirado con exito'
+    else:
+        raise Http404("El usuario no esta identificado")
+    
+    return JsonResponse({'respuesta':respuesta})

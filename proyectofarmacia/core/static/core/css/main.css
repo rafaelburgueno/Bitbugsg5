@@ -55,8 +55,10 @@ MIS ESTILOS
 
 :root {
     --c1: #eee;
+    /* --c1: #333; */
     --c2: #9CC2EC;
-    --c3: #468CDC;
+    --c3: #468CDCe6;
+    /*--c3: #468CDC;*/
     --c4: #1E5A9F;
     --c5: #0C2745;
 }
@@ -164,7 +166,7 @@ MIS ESTILOS
 */
 
 body {
-    background-image: linear-gradient(to right, #ccc, #eee);
+    background-image: linear-gradient(to right, #ddd, #eee);
 }
 
 .card {

@@ -3,7 +3,7 @@ from django.urls import path
 # el siguiente impor no es necesario en vistas basadas en clases
 # from . import views
 
-from .views import PedidoListView, PedidoDetailView, PedidoCreate, PedidosUpdate, PedidosDelete, ArchivoListView, PedidosRetirar
+from .views import PedidoListView, PedidoDetailView, PedidoCreate, PedidosUpdate, PedidosDelete, ArchivoListView, PedidosRetirar, retirar_asincrono
 
 pedidos_patterns = ([
 
@@ -16,6 +16,7 @@ pedidos_patterns = ([
     path('procesar/<int:pk>/', PedidosUpdate.as_view(), name='procesar'),
     path('retirar/<int:pk>/', PedidosRetirar.as_view(), name='retirar'),
     path('delete/<int:pk>/', PedidosDelete.as_view(), name='delete'),
+    path('<int:pk>/retirar_asinc/', retirar_asincrono, name='retirar_asinc'),
 
     
     # vistas basadas en funciones:
