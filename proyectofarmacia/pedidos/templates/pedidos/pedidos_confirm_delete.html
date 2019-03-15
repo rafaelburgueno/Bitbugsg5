@@ -10,9 +10,10 @@
       <div class="mx-auto alert alert-danger text-center" role="alert">
         <form action="" method="post">{% csrf_token %}
           <p>¿Estás seguro de que quieres borrar el pedido?</p>
+          <p>ID {{object.id }}</p>
           <p>{{object.cama}} - {{ object.paciente }}</p>
           <p>{{object.created}}</p>
-          <p><input class="btn btn-outline-danger" type="submit" value="Sí, borrar." /></p>
+          <p><input class="btn btn-danger" type="submit" value="Sí, borrar." /></p>
         </form>
       </div>
 

@@ -13,54 +13,77 @@
     {% comment %} las siguientes 'pipes' le dice que campo usar para ordenar los resultados(por urgencia y en reversa: '|dictsort:"urgencia" reversed ') {% endcomment %}
     {% for pedido in pedidos_list|dictsort:"created" reversed %}
 
-      <div class="card text-white  mb-5 color2" >
+      <div class="card mb-5" >
         <form>
         
-          <div class="card-header">
-            <h2 class="text-center">ID {{pedido.id}}</h2>
+          <div class="card-header color2">
+            <div class="row">
+              
+              <div class="col-2">
+                <span class="badge-id">ID {{pedido.id}}</span>
+              </div>
+              
+              <div class="col-10 text-right">
+                <span class="">{{pedido.created}}</span>
+              </div>
+            
+            </div>
           </div>
+
 
           <div class="card-body">
-            <table class="table table-hover text-center">
-          
-              {% comment %} <tr><td class="">Codigo identificador: {{pedido.id}}.</td></tr> {% endcomment %}
+            
+            <p class="text-left text-muted">
+              Solicitado por <span class="text-color4">{{pedido.solicitante}}</span>.
               
-              <tr><td class="">Retirado el {{pedido.fecha_despacho}} por {{pedido.retirante}}.</td></tr>
-
-              <tr><td class="">Creado el {{pedido.created}} por {{pedido.solicitante}}.</td></tr>
-
-              <tr><td class="">Procesado el {{pedido.fecha_procesamiento}} por {{pedido.procesante}}.</td></tr>
-
-              <tr><td class="">Despachable desde el {{pedido.fecha_despachable}}.</td></tr>
-
-              <tr><td class="">Urgencia: {{pedido.urgencia}}.</td></tr>
-
-              <tr><td class="">Estado: {{pedido.estado}}.</td></tr>
-
-              <tr><td class="">Paciente: {{pedido.paciente}}.</td></tr>
-
-              <tr><td class="">Cama {{pedido.cama}}.</td></tr>
+              {% if pedido.procesante %}
+                <br>Procesado el <span class="text-color4">{{pedido.fecha_procesamiento}}</span> por <span class="text-color4">{{pedido.procesante}}</span>.
+              {% endif %}
               
-              <tr>
-                <td class="">
-                  <button type="button" class="btn btn-outline-light" data-toggle="collapse" data-target="#{{pedido.id}}-insumos">
-                    Insumos <i class="fa fa-sort-desc"></i>
-                  </button>
-                  <div id="{{pedido.id}}-insumos" class="collapse">
-                    <ul class="list-group text-dark mb-2">
-                      {% for insumo in pedido.insumos_as_list %}
-                        <li class="list-group-item">{{insumo}}</li>
-                      {% endfor %}
-                    </ul>
-                  </div>
-                </td>
+              {% if  pedido.fecha_despachable != '0000'%}
+                <br>Despachable desde el <span class="text-color4">{{pedido.fecha_despachable}}</span>.
+              {% endif %}
+
+              {% if  pedido.retirante %}
+                <br>Retirado el <span class="text-color4">{{pedido.fecha_despacho}}</span> por <span class="text-color4">{{pedido.retirante}}</span>.
+              {% endif %}
+              
+            </p>
+            
+
+            <p class="text-left text-muted">
+              Para el paciente <span class="text-color4">{{pedido.paciente}}</span>, en la cama <span class="text-color4">{{pedido.cama}}</span>.
+            </p>
+
+              
+            <table class="tabla">
+              <tr class="text-center text-color4">
+                <th>Insumos</th>
               </tr>
-              
+              {% for insumo in pedido.insumos_as_list %}
+                <tr class="text-color4">
+                  <td>{{insumo}}</td>
+                </tr>
+              {% endfor %}
             </table>
+
+
+            <p class="text-right text-muted my-4">
+              En caracter de <span class="text-color4">{{pedido.urgencia}}</span>.<br>
+            
+              Se encuentra en estado <span class="text-color4">{{pedido.estado}}</span>.
+            </p>
+            
           </div>
 
-          <div class="text-center mb-4">
-          <a href="#" class="btn btn-outline-light  mx-auto "><i class="fa fa-print fa-lg"></i></a>
+          {% if 'pedidos.delete_pedidos' in request.user.get_group_permissions %} 
+            <div class="text-center m-3">   
+              <a href="{% url 'pedidos:delete' pedido.id %}" class="btn btn-danger mx-auto">Borrar <i class="fa fa-trash fa-lg ml-1"></i></a>
+            </div>
+          {% endif %}
+
+          <div class="text-center m-3">
+            <a href="#" class="btn btn-outline-color2 mx-auto ">Imprimir <i class="fa fa-print fa-lg ml-1"></i></a>
           </div>
 
         </form>

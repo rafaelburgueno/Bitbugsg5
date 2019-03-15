@@ -23,9 +23,9 @@
     {% comment %} <div class="row mt-3 mb-3">
       <div class="col-md-9 mx-auto"> {% endcomment %}
 
-    <div class="card text-white mb-5 color2" >
-      <div class="card-header text-center">
-        <h4>Crear pedido</h4>
+    <div class="card" >
+      <div class="card-header color2">
+        <h5 class="text-center">Crear pedido</h5>
       </div>
         
       <form action="" method="post" id="formularioCrear" onsubmit="return enviar()">{% csrf_token %}
@@ -35,7 +35,7 @@
           {% comment %} 
           radio button para definir la urgencia, por defecto seteado en 'no urgente'
           {% endcomment %}
-          <div class="form-group text-center">
+          <div class="form-group text-center mb-2">
             <div class="btn-group btn-group-toggle mx-auto" data-toggle="buttons">
               <label class="btn btn-outline-danger" for="id_urgencia">
                 <input type="radio" name="urgencia" id="id_urgencia" autocomplete="off" value="urgente"> Urgente
@@ -47,22 +47,22 @@
           </div>
 
 
-            {% comment %}
-            input para seleccionar el paciente
-            {% endcomment %}
-            <div class="form-group text-center mt-4">
-              {% comment %} <label class="" for="select_nombre">Paciente:</label> {% endcomment %}
-              <select class="form-control mx-auto" id="select_nombre" onchange="set_nombre_y_cama()" required>
-                <option value="" selected>Selecciona un paciente</option>
-                {% for paciente in pacientes %}
-                <option value="{{paciente}}">{{paciente}}</option>
-                {% endfor %}
-              </select>
-            
-              <input type="hidden" class="form-control mt-1" name="paciente" required id="id_paciente" readonly>
-              <input type="hidden" class="form-control mt-1" name="cama" maxlength="100" required id="id_cama" readonly>
+          {% comment %}
+          input para seleccionar el paciente
+          {% endcomment %}
+          <div class="form-group text-center mt-4">
+            {% comment %} <label class="" for="select_nombre">Paciente:</label> {% endcomment %}
+            <select class="form-control mx-auto" id="select_nombre" onchange="set_nombre_y_cama();" required>
+              <option value="" selected>Selecciona un paciente</option>
+              {% for paciente in pacientes %}
+              <option value="{{paciente}}">{{paciente}}</option>
+              {% endfor %}
+            </select>
+          
+            <input type="hidden" class="" name="paciente" required id="id_paciente">
+            <input type="hidden" class="" name="cama" maxlength="100" required id="id_cama">
 
-            </div>
+          </div>
 
 
             {% comment %} <div class="text-center">{{pacientes}}</div> {% endcomment %}
@@ -75,13 +75,13 @@
               {% comment %} <label for="id_insumos">Insumos:</label>  {% endcomment %}
 
 
-              <table class="table" id="tabla_insumos">
+              <table class="tabla" id="tabla_insumos">
   
               {% comment %} <table class="tabla table table-bordered" id="tabla"> {% endcomment %}
-                <tr class="">
-                  <td width="75%">insumo</td>
-                  <td width="10%">cantidad</td>
-                  <td width="14%">opciones</td>
+                <tr class="text-center text-color4">
+                  <th width="75%">insumo</th>
+                  <th width="10%">cantidad</th>
+                  <th width="14%">opciones</th>
                 </tr>
 
                 {% comment %} <tr>
@@ -109,7 +109,7 @@
 
 
             <div class="text-center mt-4">
-              <input type="submit" class="btn btn-outline-light btn-block mx-auto" style="width:70%;" value="Crear pedido" onsubmit="return enviar()"/>
+              <input type="submit" class="btn btn-color2 btn-block mx-auto" style="width:50%;" value="Crear pedido" onsubmit="return enviar()"/>
             </div>
 
 
@@ -126,7 +126,7 @@
 
 function set_nombre_y_cama(){
   var seleccionado = document.getElementById("select_nombre").value;
-  //console.log(seleccionado);
+  console.log(seleccionado);
   console.log(seleccionado.slice(0,5));
   console.log(seleccionado.slice(8,seleccionado.length));
   
@@ -145,7 +145,8 @@ function set_insumos(){
   console.log(seleccionado);
 
   var tabla_insumos = document.getElementById("tabla_insumos");
-  tabla_insumos.innerHTML += "<tr><td class='insumo'>" + seleccionado + "</td><td class='cantidad'>1</td><td><i class='fa fa-plus fa-lg mx-2' onclick='sumar(this)'></i><i class='fa fa-minus fa-lg mx-2' onclick='restar(this)'></i><i class='fa fa-remove fa-lg mx-2' onclick='quitar(this)'></i></td></tr>";   
+  tabla_insumos.innerHTML += "<tr class='text-color4'><td class='insumo'>" + seleccionado + "</td><td class='cantidad'>1</td><td><span class='btn btn-sm btn-outline-color2 mr-1 mb-1' onclick='sumar(this)'><i class='fa fa-plus fa-lg'></i></span><span class='btn btn-sm btn-outline-color2 mr-1 mb-1' onclick='restar(this)'><i class='fa fa-minus fa-lg'></i></span><span class='btn btn-sm btn-outline-color2 mr-1 mb-1' onclick='quitar(this)'><i class='fa fa-trash-o fa-lg'></i></span></td></tr>";   
+  //tabla_insumos.innerHTML += "<tr class='text-color4'><td class='insumo'>" + seleccionado + "</td><td class='cantidad'>1</td><td><i class='fa fa-plus fa-lg mr-1 mb-1' onclick='sumar(this)'></i><i class='fa fa-minus fa-lg mr-1 mb-1' onclick='restar(this)'></i><i class='fa fa-trash-o fa-lg mr-1 mb-1' onclick='quitar(this)'></i></td></tr>";   
 
 
 }

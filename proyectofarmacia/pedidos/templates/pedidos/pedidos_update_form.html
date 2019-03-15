@@ -4,64 +4,69 @@
 {% block content %}
 {% comment %} {% include 'pedidos/includes/pedidos_menu.html'%} {% endcomment %}
 <main role="main">
-  <div class="container">
+  <div class="container pt-2">
 
 
-    <div class="card text-white mb-5 color2" >
+    <div class="card" >
       
-      <div class="card-headerr p-2">
-        
-        {% comment %} 
-        Visualiza la urgencia del pedido (rutina, urgente)
-        {% endcomment %}
-        {% if pedidos.urgencia == 'no urgente' %}
-          <span class="badge badge-success float-left">Rutina</span>
-        {% elif pedidos.urgencia == 'urgente' %}
-          <span class="badge badge-danger float-left">Urgente</span>
-        {% else %}
-          <span class="badge badge-warning float-left">Modificado</span>
-        {% endif %}
+      <div class="card-header color2">
+            <div class="row mb-3">
+              {% comment %} <a href="{% url 'pedidos:pedido' pedido.id %}" style="color:white;"> {% endcomment %}
+              
+
+              {% comment %}
+              Visualiza el id del pedidos (podria ocultarse, no es muy relevante)
+              {% endcomment %}
+              <div class="col ">
+                <span class="badge-id">ID {{pedidos.id}}</span>
+              </div>
 
 
-        {% comment %} 
-        Visualizar el estado del pedido (pendiente, en proceso o para retirar)
-        #####################################
-        hay que hacer una llamada asincrona para cambiar el estado a 'en proceso' mientras se esta procesando
-        #####################################
-        {% endcomment %}
-        {% comment %} {% if pedidos.estado == 'pendiente' %}
-          <span class="badge badge-danger float-right">{{pedidos.estado}}</span>
-        {% elif pedidos.estado == 'en proceso' %} {% endcomment %}
-          <span class="badge badge-warning float-right">en proceso</span>
-        {% comment %} {% elif pedidos.estado == 'para retirar' %}
-          <span class="badge badge-success float-right">{{pedidos.estado}}</span>
-        {% endif %} {% endcomment %}
+              {% comment %} 
+              Visualiza la urgencia del pedidos (rutina, urgente)
+              {% endcomment %}
+              <div class="col text-center">
+                {% if pedidos.urgencia == 'no urgente' %}
+                  <span class="badge badge-success">rutina</span>
+                {% elif pedidos.urgencia == 'urgente' %}
+                  <span class="badge badge-danger">urgente</span>
+                {% else %}
+                  <span class="badge badge-warning">modificado</span>
+                {% endif %}
+              </div>
 
 
-        {% comment %}
-        Visualiza el id del pedido (podria ocultarse, no es muy relevante)
-        {% endcomment %}
-        <p class="text-center"><span class="badge badge-pill badge-light">id:{{pedidos.id}}</span></p>
+              {% comment %} 
+              Visualizar el estado del pedidos (pendiente, en proceso o para retirar)
+              {% endcomment %}
+              <div class="col text-center">
+                <span class="badge badge-warning float-right">en proceso</span>
+              </div>
+            
 
+            </div><!--final del row-->
 
-        {% comment %}
-        Visualiza la sala, la cama y el nombre del paciente
-        {% endcomment %}
-        <h6 class="text-center mt-3">{{pedidos.cama}} - {{pedidos.paciente}}</h6>
+            {% comment %} <hr class="btn-color2 m-2 p-0"> {% endcomment %}
 
-      </div>
+            {% comment %}
+            Visualiza la sala, la cama y el nombre del paciente
+            {% endcomment %}
+            <h6 class="text-center m-0">{{pedidos.cama}} - {{pedidos.paciente}}</h6>
+            
+            {% comment %} <hr class="btn-color2 m-2 p-0"> {% endcomment %}
 
-      <hr class="my-0 mx-3">
+          </div><!--final del card-header-->
+
 
       <form action="" method="post" onsubmit="return seteos_despachable_onsubmit()">{% csrf_token %}
       {% comment %} {{ form.as_p }} {% endcomment %}
 
         <div class="card-body">
           
-          <ul class="list-group text-dark mb-4">
+          <ul class="list-group mb-4">
 
             {% for insumo in pedidos.insumos_as_list %}    
-              <li class="list-group-item ">
+              <li class="list-group-item text-color3">
                 <div class="form-check pl-3 py-0">
                   {% comment %} los input checkbox no son usados para actualizar en la base de datos
                   solo se utiliza el aspecto visual del checkbox y para validar el boton de submit {% endcomment %}
@@ -105,26 +110,6 @@
           
           
 
-          {% comment %}
-          en fecha_procesamiento siempre deberia imprimirse el momento en el que se accede a esta vista de edicion
-          {% endcomment %}
-          {% comment %} <div class="form-group">
-            <label for="id_fecha_procesamiento">Fecha procesamiento:</label> 
-            <input type="text" class="form-control" name="fecha_procesamiento" id="id_fecha_procesamiento" value="{% now "DATETIME_FORMAT" %}" readonly>
-          </div> {% endcomment %}
-
-            {% comment %}
-          <p>
-            <label for="id_fecha_procesamiento">Fecha procesamiento:</label> 
-             {% if pedidos.fecha_procesamiento != '0000' %}
-              <input type="text" name="fecha_procesamiento" id="id_fecha_procesamiento" value="{{pedidos.fecha_procesamiento}}" readonly>
-            {% else %} {% endcomment %}
-            {% comment %} <input type="text" name="fecha_procesamiento" id="id_fecha_procesamiento" value="{% now "DATETIME_FORMAT" %}" readonly> {% endcomment %}
-            {% comment %} {% endif %} 
-          </p>
-            {% endcomment %}
-          
-
           {% comment %} <div class="form-group">
             <label for="id_fecha_despachable">Fecha despachable:</label>  {% endcomment %}
             <input type="hidden" class="" name="fecha_despachable" id="id_fecha_despachable" value="{{pedidos.fecha_despachable}}" readonly>
@@ -138,7 +123,7 @@
 
 
           <div class="text-center">
-            <input type="submit" class="btn btn-block btn-outline-light mx-auto" style="width:70%;" value="Finalizar pedido" />
+            <input type="submit" class="btn btn-block btn-color2 mx-auto" style="width:50%;" value="Procesar pedido" />
           </div>
   
         </div>

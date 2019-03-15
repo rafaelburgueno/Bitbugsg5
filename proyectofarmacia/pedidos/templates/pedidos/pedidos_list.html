@@ -31,109 +31,122 @@
     {% comment %} las siguientes 'pipes' le dice que campo usar para ordenar los resultados(por urgencia y en reversa: '|dictsort:"urgencia" reversed ') {% endcomment %}
     {% for pedido in pedidos_list %}
     {% if  pedido.estado != 'retirado'%}
-      <div class="card text-white  mb-5 color2" >
+      <div class="card  mb-5">
         <form>
-          <div class="px-2 pt-2 row">
-            {% comment %} <a href="{% url 'pedidos:pedido' pedido.id %}" style="color:white;"> {% endcomment %}
+          <div class="card-header color2">
+            <div class="row mb-3">
+              {% comment %} <a href="{% url 'pedidos:pedido' pedido.id %}" style="color:white;"> {% endcomment %}
+              
+
+              {% comment %}
+              Visualiza el id del pedido (podria ocultarse, no es muy relevante)
+              {% endcomment %}
+              <div class="col ">
+                <span class="badge-id">ID {{pedido.id}}</span>
+              </div>
+
+
+              {% comment %} 
+              Visualiza la urgencia del pedido (rutina, urgente)
+              {% endcomment %}
+              <div class="col text-center">
+                {% if pedido.urgencia == 'no urgente' %}
+                  <span class="badge badge-success">rutina</span>
+                {% elif pedido.urgencia == 'urgente' %}
+                  <span class="badge badge-danger">urgente</span>
+                {% else %}
+                  <span class="badge badge-warning">modificado</span>
+                {% endif %}
+              </div>
+
+
+              {% comment %} 
+              Visualizar el estado del pedido (pendiente, en proceso o para retirar)
+              {% endcomment %}
+              <div class="col text-center">
+                {% if pedido.estado == 'pendiente' %}
+                  <span id="{{pedido.id}}-estado" class="badge badge-danger">{{pedido.estado}}</span>
+                {% elif pedido.estado == 'en proceso' %}
+                  <span id="{{pedido.id}}-estado" class="badge badge-warning">{{pedido.estado}}</span>
+                {% elif pedido.estado == 'para retirar' %}
+                  <span id="{{pedido.id}}-estado" class="badge badge-success">{{pedido.estado}}</span>
+                {% elif pedido.estado == 'retirado' %}
+                  <span id="{{pedido.id}}-estado" class="badge badge-success">{{pedido.estado}}</span>
+                {% endif %}
+              </div>
             
-            {% comment %}
-            Visualiza el id del pedido (podria ocultarse, no es muy relevante)
-            {% endcomment %}
-            <div class="col text-center"><span class="badge badge-pill badge-secondary">id:{{pedido.id}}</span></div>
 
+            </div><!--final del row-->
 
-            {% comment %} 
-            Visualiza la urgencia del pedido (rutina, urgente)
-            {% endcomment %}
-            <div class="col text-center">
-            {% if pedido.urgencia == 'no urgente' %}
-              <span class="badge badge-success">rutina</span>
-            {% elif pedido.urgencia == 'urgente' %}
-              <span class="badge badge-danger">urgente</span>
-            {% else %}
-              <span class="badge badge-warning">modificado</span>
-            {% endif %}
-            </div>
-
-
-            {% comment %} 
-            Visualizar el estado del pedido (pendiente, en proceso o para retirar)
-            {% endcomment %}
-            <div class="col text-center">
-            {% if pedido.estado == 'pendiente' %}
-            <span id="{{pedido.id}}-estado" class="badge badge-danger">{{pedido.estado}}</span>
-            {% elif pedido.estado == 'en proceso' %}
-            <span id="{{pedido.id}}-estado" class="badge badge-warning">{{pedido.estado}}</span>
-            {% elif pedido.estado == 'para retirar' %}
-            <span id="{{pedido.id}}-estado" class="badge badge-success">{{pedido.estado}}</span>
-            {% elif pedido.estado == 'retirado' %}
-            <span id="{{pedido.id}}-estado" class="badge badge-success">{{pedido.estado}}</span>
-            {% endif %}
-            </div>
-            
-
-          </div>
-            
+            {% comment %} <hr class="btn-color2 m-2 p-0"> {% endcomment %}
 
             {% comment %}
             Visualiza la sala, la cama y el nombre del paciente
             {% endcomment %}
-            <h6 class="text-center mt-3">{{pedido.cama}} - {{pedido.paciente}}</h6>
+            <h6 class="text-center m-0">{{pedido.cama}} - {{pedido.paciente}}</h6>
+            
+            {% comment %} <hr class="btn-color2 m-2 p-0"> {% endcomment %}
 
-
-          <hr class="my-0 mx-3">
+          </div><!--final del card-header-->
           
+
           <div class="card-body">
             
-            <div class="mt-2">
-              <button type="button" class="btn btn-outline-light mb-1 btn-block mx-auto btn-desplegable py-2" style="width:40%;" data-toggle="collapse" data-target="#{{pedido.id}}-insumos">
+            <div class="my-3">
+              <button type="button" class="btn btn-outline-color2 mb-1 btn-block mx-auto" style="width:40%;" data-toggle="collapse" data-target="#{{pedido.id}}-insumos">
                 <i class="fa fa-sort-desc"></i> Insumos <i class="fa fa-sort-desc"></i>
               </button>
               <div id="{{pedido.id}}-insumos" class="collapse">
-                <ul class="list-group text-dark mb-3">
+                <ul class="list-group ">
                   {% for insumo in pedido.insumos_as_list %}
-                    <li class="list-group-item">{{insumo}}</li>
+                    <li class="list-group-item text-color3">{{insumo}}</li>
                   {% endfor %}
                 </ul>
               </div>
             </div>
 
-            <div class="my-4">
-              <button type="button" class="btn btn-outline-light mb-1 btn-block mx-auto btn-desplegable py-2" style="width:40%;" data-toggle="collapse" data-target="#{{pedido.id}}-fechas">
-                <i class="fa fa-sort-desc"></i> Fechas <i class="fa fa-sort-desc"></i>
+
+            <div class="my-3">
+              <button type="button" class="btn btn-outline-color2 mb-1 btn-block mx-auto" style="width:40%;" data-toggle="collapse" data-target="#{{pedido.id}}-fechas">
+                <i class="fa fa-ellipsis-h"></i>
               </button>
               <div id="{{pedido.id}}-fechas" class="collapse">
-                <ul class="list-group text-dark">
+                <ul class="list-group text-color4 text-center">
                   <li class="list-group-item small p-1">Solicitado por: {{pedido.solicitante}} - {{pedido.created}}</li>
-                  <li class="list-group-item small p-1">Procesado por: {{pedido.procesante}} - {{pedido.fecha_procesamiento}}</li>
-                  <li class="list-group-item small p-1">Despachable: {{pedido.fecha_despachable}}</li>
-                  <li class="list-group-item small p-1">Retirado por: {{pedido.retirante}} - {{pedido.fecha_despacho}}</li>
+                  {% if pedido.procesante %}
+                    <li class="list-group-item small p-1">Procesado por: {{pedido.procesante}} - {{pedido.fecha_procesamiento}}</li>
+                  {% endif %}
+                  {% if pedido.procesante %}
+                    <li class="list-group-item small p-1">Despachable: {{pedido.fecha_despachable}}</li>
+                  {% endif %}
+                  {% if pedido.retirante %}
+                    <li class="list-group-item small p-1">Retirado por: {{pedido.retirante}} - {{pedido.fecha_despacho}}</li>
+                  {% endif %}
                 </ul>
               </div>
             </div>
-            
-            <hr class="my-4 mx-0">
 
-            {% if 'pedidos.change_pedidos' in request.user.get_group_permissions and pedido.estado == 'pendiente' %}
-            <a href="{% url 'pedidos:procesar' pedido.id %}" class="btn btn-block btn-outline-light mx-auto" style="width:70%;">Procesar</a>
-            {% endif %}
+            <div class="mt-3">
+              {% if 'pedidos.change_pedidos' in request.user.get_group_permissions and pedido.estado == 'pendiente' %}
+                <a href="{% url 'pedidos:procesar' pedido.id %}" class="btn btn-block btn-color2 mx-auto" style="width:50%;">Procesar</a>
+              {% endif %}
 
-            {% if 'pedidos.add_pedidos' in request.user.get_group_permissions and pedido.estado == 'para retirar' %}
-              {% comment %} <a href="{% url 'pedidos:retirar' pedido.id %}" class="btn btn-block btn-outline-light mx-auto" style="width:70%;">Retirar</a> {% endcomment %}
-              <a onclick="retirar_asinc(this)" data-retirar-id="{{pedido.id}}" class="btn btn-block btn-outline-light mx-auto" style="width:70%;">Retirar pedido id:{{pedido.id}}</a>
-            {% endif %}
+              {% if 'pedidos.add_pedidos' in request.user.get_group_permissions and pedido.estado == 'para retirar' %}
+                {% comment %} <a href="{% url 'pedidos:retirar' pedido.id %}" class="btn btn-block btn-outline-light mx-auto" style="width:50%;">Retirar</a> {% endcomment %}
+                <a onclick="retirar_asinc(this)" data-retirar-id="{{pedido.id}}" class="btn btn-block btn-color2 mx-auto" style="width:50%;">Retirar pedido id {{pedido.id}}</a>
+              {% endif %}
 
-            {% if 'pedidos.delete_pedidos' in request.user.get_group_permissions %}    
-            <a href="{% url 'pedidos:delete' pedido.id %}" class="btn btn-block btn-outline-warning mx-auto" style="width:70%;">Borrar</a>
-            {% endif %}
-
+              {% if 'pedidos.delete_pedidos' in request.user.get_group_permissions %}    
+                <a href="{% url 'pedidos:delete' pedido.id %}" class="btn btn-block btn-color2 mx-auto" style="width:50%;">Borrar</a>
+              {% endif %}
+            </div>
 
             
           </div>
 
         </form>
 
-      </div>
+      </div><!--final del card-->
 
     {% endif %}
     {% endfor %}
