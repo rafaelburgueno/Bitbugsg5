@@ -9,6 +9,7 @@
 
       <div class="mx-auto alert alert-danger text-center" role="alert">
         <form action="" method="post">{% csrf_token %}
+          <p><i class="fa fa-warning ml-1 fa-4x"></i></p>
           <p>¿Estás seguro de que quieres borrar el pedido?</p>
           <p>ID {{object.id }}</p>
           <p>{{object.cama}} - {{ object.paciente }}</p>
