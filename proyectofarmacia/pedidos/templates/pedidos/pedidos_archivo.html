@@ -13,10 +13,10 @@
     {% comment %} las siguientes 'pipes' le dice que campo usar para ordenar los resultados(por urgencia y en reversa: '|dictsort:"urgencia" reversed ') {% endcomment %}
     {% for pedido in pedidos_list|dictsort:"created" reversed %}
 
-      <div class="card mb-5" >
+      <div class="card mb-5 borde-superior-azul">
         <form>
         
-          <div class="card-header color2">
+          <header class="p-2 bg-gris-muy-claro text-gris-oscuro">
             <div class="row">
               
               <div class="col-2">
@@ -28,62 +28,62 @@
               </div>
             
             </div>
-          </div>
+          </header>
 
 
-          <div class="card-body">
+          <div class="pedidos-panel-colapsable p-2">
             
-            <p class="text-left text-muted">
-              Solicitado por <span class="text-color4">{{pedido.solicitante}}</span>.
+            <p class="text-left text-gris">
+              Solicitado por <span class="text-gris-oscuro">{{pedido.solicitante}}</span>.
               
               {% if pedido.procesante %}
-                <br>Procesado el <span class="text-color4">{{pedido.fecha_procesamiento}}</span> por <span class="text-color4">{{pedido.procesante}}</span>.
+                <br>Procesado el <span class="text-gris-oscuro">{{pedido.fecha_procesamiento}}</span> por <span class="text-color4">{{pedido.procesante}}</span>.
               {% endif %}
               
               {% if  pedido.fecha_despachable != '0000'%}
-                <br>Despachable desde el <span class="text-color4">{{pedido.fecha_despachable}}</span>.
+                <br>Despachable desde el <span class="text-gris-oscuro">{{pedido.fecha_despachable}}</span>.
               {% endif %}
 
               {% if  pedido.retirante %}
-                <br>Retirado el <span class="text-color4">{{pedido.fecha_despacho}}</span> por <span class="text-color4">{{pedido.retirante}}</span>.
+                <br>Retirado el <span class="text-gris-oscuro">{{pedido.fecha_despacho}}</span> por <span class="text-color4">{{pedido.retirante}}</span>.
               {% endif %}
               
             </p>
             
 
-            <p class="text-left text-muted">
-              Para el paciente <span class="text-color4">{{pedido.paciente}}</span>, en la cama <span class="text-color4">{{pedido.cama}}</span>.
+            <p class="text-left text-gris">
+              Para el paciente <span class="text-gris-oscuro">{{pedido.paciente}}</span>, en la cama <span class="text-gris-oscuro">{{pedido.cama}}</span>.
             </p>
 
               
             <table class="tabla">
-              <tr class="text-center text-color4">
+              <tr class="text-center text-gris">
                 <th>Insumos</th>
               </tr>
               {% for insumo in pedido.insumos_as_list %}
-                <tr class="text-color4">
+                <tr class="text-gris-oscuro">
                   <td>{{insumo}}</td>
                 </tr>
               {% endfor %}
             </table>
 
 
-            <p class="text-right text-muted my-4">
-              En caracter de <span class="text-color4">{{pedido.urgencia}}</span>.<br>
+            <p class="text-right text-gris my-4">
+              En caracter de <span class="text-gris-oscuro">{{pedido.urgencia}}</span>.<br>
             
-              Se encuentra en estado <span class="text-color4">{{pedido.estado}}</span>.
+              Se encuentra en estado <span class="text-gris-oscuro">{{pedido.estado}}</span>.
             </p>
             
           </div>
 
           {% if 'pedidos.delete_pedidos' in request.user.get_group_permissions %} 
             <div class="text-center m-3">   
-              <a href="{% url 'pedidos:delete' pedido.id %}" class="btn btn-danger mx-auto">Borrar <i class="fa fa-trash fa-lg ml-1"></i></a>
+              <a href="{% url 'pedidos:delete' pedido.id %}" class="btn btn-outline-gris mx-auto">Borrar <i class="fa fa-trash fa-lg ml-1"></i></a>
             </div>
           {% endif %}
 
           <div class="text-center m-3">
-            <a href="#" class="btn btn-outline-color2 mx-auto ">Imprimir <i class="fa fa-print fa-lg ml-1"></i></a>
+            <a href="#" class="btn btn-outline-gris mx-auto ">Imprimir <i class="fa fa-print fa-lg ml-1"></i></a>
           </div>
 
         </form>

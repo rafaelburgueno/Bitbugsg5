@@ -13,7 +13,7 @@
     <link href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'core/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'core/css/main.css' %}" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    {% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> {% endcomment %}
   </head>
   {% comment %} <body> {% endcomment %}
   <body class="bg-light pt-5 pb-5">
@@ -85,32 +85,32 @@
         <ul class="nav justify-content-center">
           <li class="nav-item mx-auto">
             <a class="nav-link btn-menu-inferior {% if request.path == '/' %}btn-active{% endif %}" href="{% url 'home' %}">
-              <i class="fa fa-lg fa-home"></i>
+              <i class="fa fa-2x fa-home"></i>
             </a>
           </li>
           <li class="nav-item mx-auto">
             <a class="nav-link btn-menu-inferior {% if request.path == '/pedidos/' %}btn-active{% endif %}" href="{% url 'pedidos:pedidos' %}">
-              <i class="fa fa-lg fa-address-card-o"></i>
+              <i class="fa fa-2x fa-address-card-o"></i>
             </a>
           </li>
           {% if 'pedidos.add_pedidos' in request.user.get_group_permissions %}
           <li class="nav-item mx-auto">
             <a class="nav-link btn-menu-inferior {% if request.path == '/pedidos/crear/' %}btn-active{% endif %}" href="{% url 'pedidos:crear' %}">
-              <i class="fa fa-lg fa-pencil-square-o"></i>
+              <i class="fa fa-2x fa-pencil-square-o"></i>
             </a>
           </li>
           {% endif %}
           {% comment %} <li class="nav-item mx-auto">
-            <a class="nav-link" href="#"><i class="btn-menu-inferior fa fa-lg fa-gear"></i></a>
+            <a class="nav-link" href="#"><i class="btn-menu-inferior fa fa-2x fa-gear"></i></a>
           </li> {% endcomment %}
           <li class="nav-item mx-auto">
             <a class="nav-link btn-menu-inferior {% if request.path == '/pedidos/archivo/' %}btn-active{% endif %}" href="{% url 'pedidos:archivo' %}">
-              <i class="fa fa-lg fa-archive"></i>
+              <i class="fa fa-2x fa-archive"></i>
             </a>
           </li>
           <li class="nav-item mx-auto">
             <a class="nav-link btn-menu-inferior" href="{{ request.path }}">
-              <i class="fa fa-lg fa-refresh"></i>
+              <i class="fa fa-2x fa-refresh"></i>
             </a>
           </li>
         </ul>

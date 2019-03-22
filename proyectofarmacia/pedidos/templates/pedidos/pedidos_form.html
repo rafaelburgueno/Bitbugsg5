@@ -23,17 +23,16 @@
     {% comment %} <div class="row mt-3 mb-3">
       <div class="col-md-9 mx-auto"> {% endcomment %}
 
-    <div class="card" >
-      <div class="card-header color2">
-        <h5 class="text-center">Crear pedido</h5>
-      </div>
+    <div class="card borde-superior-azul" >
+      <header class="pt-2 pb-1 bg-gris-muy-claro">
+        <h4 class="text-center text-gris-oscuro">Crear pedido</h4>
+      </header>
         
       <form action="" method="post" id="formularioCrear" onsubmit="return enviar()">{% csrf_token %}
-        <div class="card-body">
-          {% comment %} {{ form.as_p }} {% endcomment %}
+        <div class="pedidos-panel-colapsable p-3">
 
           {% comment %} 
-          radio button para definir la urgencia, por defecto seteado en 'no urgente'
+          BOTON URGENCIA
           {% endcomment %}
           <div class="form-group text-center mb-2">
             <div class="btn-group btn-group-toggle mx-auto" data-toggle="buttons">
@@ -48,7 +47,7 @@
 
 
           {% comment %}
-          input para seleccionar el paciente
+          INPUT PACIENTE
           {% endcomment %}
           <div class="form-group text-center mt-4">
             {% comment %} <label class="" for="select_nombre">Paciente:</label> {% endcomment %}
@@ -65,20 +64,15 @@
           </div>
 
 
-            {% comment %} <div class="text-center">{{pacientes}}</div> {% endcomment %}
-
 
             {% comment %}
-            espacio para introducir los insumos que se pediran
+            TABLA INSUMOS
             {% endcomment %}
             <div class="form-group text-center mt-4">
-              {% comment %} <label for="id_insumos">Insumos:</label>  {% endcomment %}
-
-
+            
               <table class="tabla" id="tabla_insumos">
   
-              {% comment %} <table class="tabla table table-bordered" id="tabla"> {% endcomment %}
-                <tr class="text-center text-color4">
+                <tr class="text-center text-gris-oscuro">
                   <th width="75%">insumo</th>
                   <th width="10%">cantidad</th>
                   <th width="14%">opciones</th>
@@ -109,7 +103,7 @@
 
 
             <div class="text-center mt-4">
-              <input type="submit" class="btn btn-color2 btn-block mx-auto" style="width:50%;" value="Crear pedido" onsubmit="return enviar()"/>
+              <input type="submit" class="btn btn-outline-gris btn-block mx-auto" style="width:50%;" value="Crear pedido" onsubmit="return enviar()"/>
             </div>
 
 
@@ -145,8 +139,8 @@ function set_insumos(){
   console.log(seleccionado);
 
   var tabla_insumos = document.getElementById("tabla_insumos");
-  tabla_insumos.innerHTML += "<tr class='text-color4'><td class='insumo'>" + seleccionado + "</td><td class='cantidad'>1</td><td><span class='btn btn-sm btn-outline-color2 mr-1 mb-1' onclick='sumar(this)'><i class='fa fa-plus fa-lg'></i></span><span class='btn btn-sm btn-outline-color2 mr-1 mb-1' onclick='restar(this)'><i class='fa fa-minus fa-lg'></i></span><span class='btn btn-sm btn-outline-color2 mr-1 mb-1' onclick='quitar(this)'><i class='fa fa-trash-o fa-lg'></i></span></td></tr>";   
-  //tabla_insumos.innerHTML += "<tr class='text-color4'><td class='insumo'>" + seleccionado + "</td><td class='cantidad'>1</td><td><i class='fa fa-plus fa-lg mr-1 mb-1' onclick='sumar(this)'></i><i class='fa fa-minus fa-lg mr-1 mb-1' onclick='restar(this)'></i><i class='fa fa-trash-o fa-lg mr-1 mb-1' onclick='quitar(this)'></i></td></tr>";   
+  tabla_insumos.innerHTML += "<tr class=''><td class='insumo'>" + seleccionado + "</td><td class='cantidad'>1</td><td><span class='btn btn-sm btn-outline-gris mr-1 mb-1' onclick='sumar(this)'><i class='fa fa-plus fa-lg'></i></span><span class='btn btn-sm btn-outline-gris mr-1 mb-1' onclick='restar(this)'><i class='fa fa-minus fa-lg'></i></span><span class='btn btn-sm btn-outline-gris mr-1 mb-1' onclick='quitar(this)'><i class='fa fa-trash-o fa-lg'></i></span></td></tr>";   
+  //tabla_insumos.innerHTML += "<tr class=''><td class='insumo'>" + seleccionado + "</td><td class='cantidad'>1</td><td><i class='fa fa-plus fa-lg mr-1 mb-1' onclick='sumar(this)'></i><i class='fa fa-minus fa-lg mr-1 mb-1' onclick='restar(this)'></i><i class='fa fa-trash-o fa-lg mr-1 mb-1' onclick='quitar(this)'></i></td></tr>";   
 
 
 }
