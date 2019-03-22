@@ -37,7 +37,7 @@
               Solicitado por <span class="text-gris-oscuro">{{pedido.solicitante}}</span>.
               
               {% if pedido.procesante %}
-                <br>Procesado el <span class="text-gris-oscuro">{{pedido.fecha_procesamiento}}</span> por <span class="text-color4">{{pedido.procesante}}</span>.
+                <br>Procesado el <span class="text-gris-oscuro">{{pedido.fecha_procesamiento}}</span> por <span class="text-gris-oscuro">{{pedido.procesante}}</span>.
               {% endif %}
               
               {% if  pedido.fecha_despachable != '0000'%}
@@ -45,7 +45,7 @@
               {% endif %}
 
               {% if  pedido.retirante %}
-                <br>Retirado el <span class="text-gris-oscuro">{{pedido.fecha_despacho}}</span> por <span class="text-color4">{{pedido.retirante}}</span>.
+                <br>Retirado el <span class="text-gris-oscuro">{{pedido.fecha_despacho}}</span> por <span class="text-gris-oscuro">{{pedido.retirante}}</span>.
               {% endif %}
               
             </p>
