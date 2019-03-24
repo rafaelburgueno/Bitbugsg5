@@ -89,7 +89,7 @@
           {% comment %} <div class="form-group">
             <label for="id_procesante">Procesado:</label>  {% endcomment %}
             <input type="hidden" class="" name="procesante" value="{{pedidos.procesante}}" id="id_procesante" readonly>
-            <input type="hidden" class="" name="fecha_procesamiento" id="id_fecha_procesamiento" value="" readonly>
+            <input type="hidden" class="" name="fecha_procesamiento" id="id_fecha_procesamiento" value="{{fecha_procesamiento}}" readonly>
           {% comment %} </div> {% endcomment %}
       
           {% comment %} <p>
@@ -151,9 +151,9 @@
   /*================================
   SETEO DE LA FECHA DE PROCESAMIENTO
   ================================*/
-  var d = new Date();
-  var fecha = d.toLocaleDateString()+' '+d.toLocaleTimeString();
-  document.getElementById("id_fecha_procesamiento").value = fecha;
+  //var d = new Date();
+  //var fecha = d.toLocaleDateString()+' '+d.toLocaleTimeString();
+  //document.getElementById("id_fecha_procesamiento").value = fecha;
 
 </script>
 

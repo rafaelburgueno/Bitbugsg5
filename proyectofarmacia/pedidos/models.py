@@ -1,4 +1,4 @@
-
+from datetime import datetime
 from django.db import models
 
 
@@ -13,7 +13,7 @@ class Pedidos(models.Model):
     estado = models.CharField(verbose_name="Estado", max_length=100, default='pendiente')
     id_modificado = models.CharField(verbose_name="modificado", max_length=50, default='no')
     
-    created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
+    created = models.CharField(verbose_name="Fecha de creación", max_length=100, blank=True, default=datetime.now().strftime('%d/%m/%Y %H:%M:%S'))
     updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
     
     fecha_procesamiento = models.CharField(verbose_name="Fecha de procesamiento", max_length=100, blank=True, default='0000')
@@ -32,7 +32,6 @@ class Pedidos(models.Model):
     # metodo para dividir el string de insumos
     def insumos_as_list(self):
         return self.insumos.split(';')
-
     
     # metodo para actualizar la fecha
     #def actualizar_fecha(self):

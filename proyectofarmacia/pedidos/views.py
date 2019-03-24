@@ -114,6 +114,14 @@ class PedidosUpdate(UpdateView):
     fields = ['estado','fecha_procesamiento']
     template_name_suffix = '_update_form'
     
+    ###################################################
+    # MANDo UN CONTEXT DATA
+    def get_context_data(self, **kwargs):
+        context = super(PedidosUpdate, self).get_context_data(**kwargs)
+        context['fecha_procesamiento'] = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+        return context
+    ###################################################
+
     #success_url = reverse_lazy('pedidos:procesar')
     def get_success_url(self):
         #return reverse_lazy('pedidos:procesar', args=[self.object.id]) + '?ok'
