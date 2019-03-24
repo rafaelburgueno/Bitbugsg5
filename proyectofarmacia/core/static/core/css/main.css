@@ -67,6 +67,8 @@ MIS ESTILOS
     --color-rojo: #fd4153;
     --color-rojo-claro: #fd4153bb;
     --color-azul: #468CDC;
+    --color-azul-claro: rgba(70, 140, 220, 0.747);
+    --color-azul-muy-claro: rgba(70, 140, 220, 0.5);
     --color-verde: #28a746;
     --color-verde-claro: #28a746bb;
     --color-amarillo: #ddda31;
@@ -191,7 +193,8 @@ MIS ESTILOS
     border-top-color: var(--color-verde);
 }
 
-.pedidos-panel-colapsable {
+.pedidos-panel-colapsable,
+.borde-superior-panel-colapsable {
     border-top: 1px solid var(--color-gris-claro);
 }
 
@@ -278,19 +281,19 @@ MIS ESTILOS
 }
 
 .logo-principal {
-    color: #555;
+    color: var(--color-azul);
     position: relative;
     padding: 0px 10px;
     font-size: 2em;
     font-family: 'Suez One', serif;
-    border: 1px solid #555;
+    border: 1px solid var(--color-azul);
     border-radius: 5px;
 }
 
 .logo-principal::before {
     content: "";
     position: absolute;
-    border: 1px solid #888;
+    border: 1px solid var(--color-azul-claro);
     top: 1px;
     right: 1px;
     bottom: 1px;
@@ -301,7 +304,7 @@ MIS ESTILOS
 .logo-principal::after {
     content: "";
     position: absolute;
-    border: 1px solid #bbb;
+    border: 1px solid var(--color-azul-muy-claro);
     top: 3px;
     right: 3px;
     bottom: 3px;
@@ -353,9 +356,9 @@ body {
 }
 
 .badge-en-proceso {
-    color: var(--color-gris-oscuro);
-    border-color: var(--color-gris) !important;
-    background-color: var(--color-rojo);
+    color: var(--color-gris-muy-claro);
+    border-color: var(--color-gris-claro) !important;
+    background-color: var(--color-rojo-claro);
 }
 
 .badge-para-retirar {
@@ -380,6 +383,10 @@ body {
 .badge-warning,
 .badge-success {
     border-radius: 5px;
+}
+
+.btn {
+    transition: 0.5s;
 }
 
 .btn-outline-color2 {
@@ -465,6 +472,7 @@ body {
 /*aca esta en no seleccionado*/
 
 .btn-outline-success,
+.btn-outline-warning,
 .btn-outline-danger {
     color: #ccc;
     /* background-color: transparent; */
@@ -476,6 +484,12 @@ body {
     color: #eee;
     background-color: var(--color-verde-claro);
     border-color: var(--color-verde-claro);
+}
+
+.btn-outline-warning:hover {
+    color: #eee;
+    background-color: var(--color-amarillo-claro);
+    border-color: var(--color-amarillo-claro);
 }
 
 .btn-outline-danger:hover {
@@ -493,6 +507,14 @@ body {
     color: #fff;
     background-color: var(--color-verde);
     border-color: var(--color-verde);
+}
+
+.btn-outline-warning:not(:disabled):not(.disabled):active,
+.btn-outline-warning:not(:disabled):not(.disabled).active,
+.show>.btn-outline-warning.dropdown-toggle {
+    color: #fff;
+    background-color: var(--color-amarillo);
+    border-color: var(--color-amarillo);
 }
 
 .btn-outline-danger:not(:disabled):not(.disabled):active,

@@ -7,78 +7,81 @@
   <div class="container pt-2">
 
 
-    <div class="card" >
+    <div class="card mb-3 {% if pedidos.urgencia == 'urgente' %}color-urgente-borde{% else %}color-no-urgente-borde{% endif %}" >
       
-      <div class="card-header color2">
-            <div class="row mb-3">
-              {% comment %} <a href="{% url 'pedidos:pedido' pedido.id %}" style="color:white;"> {% endcomment %}
+      <header class="p-2 bg-gris-muy-claro">
+        <div class="row">
+          {% comment %} <a href="{% url 'pedidos:pedido' pedido.id %}" style="color:white;"> {% endcomment %}
               
 
-              {% comment %}
-              Visualiza el id del pedidos (podria ocultarse, no es muy relevante)
-              {% endcomment %}
-              <div class="col ">
-                <span class="badge-id">ID {{pedidos.id}}</span>
-              </div>
+          <div class="col-2">
+            <span class="float-left badge-id">id {{pedidos.id}}</span>
+          </div>
+
+          <div class="col-6 text-center">
+            <span class="">{{pedidos.cama}} - {{pedidos.paciente}}</span>
+          </div>
 
 
-              {% comment %} 
-              Visualiza la urgencia del pedidos (rutina, urgente)
-              {% endcomment %}
-              <div class="col text-center">
-                {% if pedidos.urgencia == 'no urgente' %}
-                  <span class="badge badge-success">rutina</span>
-                {% elif pedidos.urgencia == 'urgente' %}
-                  <span class="badge badge-danger">urgente</span>
-                {% else %}
-                  <span class="badge badge-warning">modificado</span>
-                {% endif %}
-              </div>
+          {% comment %} 
+          Visualiza la urgencia del pedidos (rutina, urgente)
+          {% endcomment %}
+          {% comment %} <div class="col text-center">
+            {% if pedidos.urgencia == 'no urgente' %}
+              <span class="badge badge-success">rutina</span>
+            {% elif pedidos.urgencia == 'urgente' %}
+              <span class="badge badge-danger">urgente</span>
+            {% else %}
+              <span class="badge badge-warning">modificado</span>
+            {% endif %}
+          </div> {% endcomment %}
 
 
-              {% comment %} 
-              Visualizar el estado del pedidos (pendiente, en proceso o para retirar)
-              {% endcomment %}
-              <div class="col text-center">
-                <span class="badge badge-warning float-right">en proceso</span>
-              </div>
+          {% comment %} 
+          Visualizar el estado del pedidos (pendiente, en proceso o para retirar)
+          {% endcomment %}
+          <div class="col-4">
+            <span class="float-right badge-estado badge-en-proceso">en proceso</span>
+          </div>
             
 
-            </div><!--final del row-->
+        </div><!--final del row-->
 
-            {% comment %} <hr class="btn-color2 m-2 p-0"> {% endcomment %}
+        {% comment %} <hr class="btn-color2 m-2 p-0"> {% endcomment %}
 
-            {% comment %}
-            Visualiza la sala, la cama y el nombre del paciente
-            {% endcomment %}
-            <h6 class="text-center m-0">{{pedidos.cama}} - {{pedidos.paciente}}</h6>
+        {% comment %}
+        Visualiza la sala, la cama y el nombre del paciente
+        {% endcomment %}
+        {% comment %} <h6 class="text-center m-0">{{pedidos.cama}} - {{pedidos.paciente}}</h6> {% endcomment %}
             
-            {% comment %} <hr class="btn-color2 m-2 p-0"> {% endcomment %}
+        {% comment %} <hr class="btn-color2 m-2 p-0"> {% endcomment %}
 
-          </div><!--final del card-header-->
+      </header><!--final del header-->
 
 
       <form action="" method="post" onsubmit="return seteos_despachable_onsubmit()">{% csrf_token %}
       {% comment %} {{ form.as_p }} {% endcomment %}
 
-        <div class="card-body">
+        <div class="borde-superior-panel-colapsable p-3">
           
-          <ul class="list-group mb-4">
+          <h6 class="text-center titulo-seccion">Insumos solicitados</h6>
+          <div class="my-2">
+            <ul class="list-group ">
 
-            {% for insumo in pedidos.insumos_as_list %}    
-              <li class="list-group-item text-color3">
-                <div class="form-check pl-3 py-0">
-                  {% comment %} los input checkbox no son usados para actualizar en la base de datos
-                  solo se utiliza el aspecto visual del checkbox y para validar el boton de submit {% endcomment %}
-                  <input type="checkbox" class="form-check-input" id="{{forloop.counter}}--{{insumo|slugify}}" required>
-                  {% comment %} el forloop.counter y el insumo|slugify solucionan el problema de los id duplicados en el label  {% endcomment %}
-                  <label class="form-check-label" for="{{forloop.counter}}--{{insumo|slugify}}">{{insumo}}</label>
-                </div>
-              </li>
-            {% endfor %}
-          
-          </ul>
-      
+              {% for insumo in pedidos.insumos_as_list %}    
+                <li class="list-group-item ">
+                  <div class="form-check pl-3 py-0">
+                    {% comment %} los input checkbox no son usados para actualizar en la base de datos
+                    solo se utiliza el aspecto visual del checkbox y para validar el boton de submit {% endcomment %}
+                    <input type="checkbox" class="form-check-input" id="{{forloop.counter}}--{{insumo|slugify}}" required>
+                    {% comment %} el forloop.counter y el insumo|slugify solucionan el problema de los id duplicados en el label  {% endcomment %}
+                    <label class="form-check-label" for="{{forloop.counter}}--{{insumo|slugify}}">{{insumo}}</label>
+                  </div>
+                </li>
+              {% endfor %}
+            
+            </ul>
+          </div>
       
           {% comment %}
           django establece el siguiente input con el nombre usuario que accede
@@ -86,7 +89,7 @@
           {% comment %} <div class="form-group">
             <label for="id_procesante">Procesado:</label>  {% endcomment %}
             <input type="hidden" class="" name="procesante" value="{{pedidos.procesante}}" id="id_procesante" readonly>
-            <input type="hidden" class="" name="fecha_procesamiento" id="id_fecha_procesamiento" value="{% now "DATETIME_FORMAT" %}" readonly>
+            <input type="hidden" class="" name="fecha_procesamiento" id="id_fecha_procesamiento" value="" readonly>
           {% comment %} </div> {% endcomment %}
       
           {% comment %} <p>
@@ -111,9 +114,9 @@
           
 
           {% comment %} <div class="form-group">
-            <label for="id_fecha_despachable">Fecha despachable:</label>  {% endcomment %}
+            <label for="id_fecha_despachable">Fecha despachable:</label>  
             <input type="hidden" class="" name="fecha_despachable" id="id_fecha_despachable" value="{{pedidos.fecha_despachable}}" readonly>
-          {% comment %} </div> {% endcomment %}
+          </div> {% endcomment %}
 
           {% comment %} <p>
             <label for="id_fecha_despachable">Fecha despachable:</label> 
@@ -122,8 +125,8 @@
 
 
 
-          <div class="text-center">
-            <input type="submit" class="btn btn-block btn-color2 mx-auto" style="width:50%;" value="Procesar pedido" />
+          <div class="text-center mt-4">
+            <input type="submit" class="btn btn-block btn-outline-gris mx-auto" style="width:50%;" value="Procesar pedido" />
           </div>
   
         </div>
@@ -135,14 +138,23 @@
 <script>
   function seteos_despachable_onsubmit() {
     
-    var d = new Date();
-    var fecha = d.toLocaleDateString()+' '+d.toLocaleTimeString();
-    document.getElementById("id_fecha_despachable").value = fecha;
+    //var d = new Date();
+    //var fecha = d.toLocaleDateString()+' '+d.toLocaleTimeString();
+    //var fecha = '{% now "DATETIME_FORMAT" %}';
+    //document.getElementById("id_fecha_despachable").value = fecha;
 
     document.getElementById("id_estado").value = 'para retirar';
     
     //confirm("ejecutando la funcion onsubmit ;D");
   }
+  
+  /*================================
+  SETEO DE LA FECHA DE PROCESAMIENTO
+  ================================*/
+  var d = new Date();
+  var fecha = d.toLocaleDateString()+' '+d.toLocaleTimeString();
+  document.getElementById("id_fecha_procesamiento").value = fecha;
+
 </script>
 
 

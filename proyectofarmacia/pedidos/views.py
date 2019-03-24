@@ -91,6 +91,8 @@ class PedidoCreate(CreateView):
 
     ########################################
     # VALIDAR FORMULARIOS
+    #x = datetime.datetime.now()
+    #fecha = x.strftime("%d-%m-%Y %H:%M:%S")
     def form_valid(self, form):
         #print(self.request.method)
         #print( self.request.user.username)
@@ -109,7 +111,7 @@ class PedidoCreate(CreateView):
 class PedidosUpdate(UpdateView):
     model = Pedidos
     #fields = ['procesante','estado','fecha_procesamiento','fecha_despachable']
-    fields = ['estado','fecha_procesamiento','fecha_despachable']
+    fields = ['estado','fecha_procesamiento']
     template_name_suffix = '_update_form'
     
     #success_url = reverse_lazy('pedidos:procesar')
@@ -140,6 +142,8 @@ class PedidosUpdate(UpdateView):
             form.instance.procesante = self.request.user.get_full_name()
         else:
             form.instance.procesante = self.request.user.username
+        x = datetime.now()
+        form.instance.fecha_despachable = x.strftime('%d/%m/%Y %H:%M:%S')
         #print(self.request.user.username)
         return super().form_valid(form)
     ########################################
@@ -184,6 +188,10 @@ class PedidosRetirar(UpdateView):
         else:
             form.instance.retirante = self.request.user.username
         #imprime la etiqueta de 'retirado' en el estado del pedido
+        
+        x = datetime.now()
+        form.instance.fecha_despacho = x.strftime('%d/%m/%Y %H:%M:%S')
+        
         form.instance.estado = 'retirado'
         #print(self.request.user.username)
         return super().form_valid(form)
@@ -221,7 +229,10 @@ def retirar_asincrono(request, pk):
     
     #print("llego la peticion para retirar el id ",pk)
     respuesta = 'se intenta retirar el pedido '+str(pk)
-    fecha_despacho = str(datetime.now())[:-7]
+    
+    x = datetime.now()
+    fecha_despacho = x.strftime('%d/%m/%Y %H:%M:%S')
+    #fecha_despacho = str(datetime.now())[:-7]
 
     if request.user.is_authenticated:
         #print("el pasiente es: ", pedido.paciente)

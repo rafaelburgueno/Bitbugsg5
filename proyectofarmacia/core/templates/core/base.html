@@ -10,8 +10,12 @@
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Raleway|Roboto|Ubuntu|Lato|Suez+One" rel="stylesheet"> 
     <!-- Estilos -->
-    <link href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'core/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    {% comment %} <link href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"> {% endcomment %}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+    {% comment %} <link href="{% static 'core/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css"> {% endcomment %}
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
     <link href="{% static 'core/css/main.css' %}" rel="stylesheet">
     {% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> {% endcomment %}
   </head>
@@ -118,8 +122,12 @@
       {% endif %}
 
       <!-- Javascript -->
-      <script src="{% static 'core/vendor/jquery/jquery.min.js' %}"></script>
+      {% comment %} <script src="{% static 'core/vendor/jquery/jquery.min.js' %}"></script> {% endcomment %}
+      <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
       <script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+      
+
       <script src="{% static 'core/js/main.js' %}"></script>
 
   </body>

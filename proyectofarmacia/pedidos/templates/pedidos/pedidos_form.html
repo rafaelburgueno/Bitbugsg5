@@ -36,7 +36,7 @@
           {% endcomment %}
           <div class="form-group text-center mb-2">
             <div class="btn-group btn-group-toggle mx-auto" data-toggle="buttons">
-              <label class="btn btn-outline-danger" for="id_urgencia">
+              <label class="btn btn-outline-warning" for="id_urgencia">
                 <input type="radio" name="urgencia" id="id_urgencia" autocomplete="off" value="urgente"> Urgente
               </label>
               <label class="btn btn-outline-success active" for="id_urgencia2">
@@ -53,7 +53,7 @@
             {% comment %} <label class="" for="select_nombre">Paciente:</label> {% endcomment %}
             <select class="form-control mx-auto" id="select_nombre" onchange="set_nombre_y_cama();" required>
               <option value="" selected>Selecciona un paciente</option>
-              {% for paciente in pacientes %}
+              {% for paciente in pacientes|dictsort:"cama" %}
               <option value="{{paciente}}">{{paciente}}</option>
               {% endfor %}
             </select>
@@ -120,17 +120,21 @@
 
 function set_nombre_y_cama(){
   var seleccionado = document.getElementById("select_nombre").value;
-  console.log(seleccionado);
-  console.log(seleccionado.slice(0,5));
-  console.log(seleccionado.slice(8,seleccionado.length));
-  
-  var cama = seleccionado.slice(0,5);
-  var nombre = seleccionado.slice(8,seleccionado.length);
-  // seleccionado.name;
-  //seleccionado.dataset.cama;
+  //console.log(seleccionado);
+  //console.log(seleccionado.slice(0,5));
+  //console.log(seleccionado.slice(8,seleccionado.length));
+  if(seleccionado != ''){
+    var cama = seleccionado.slice(0,5);
+    var nombre = seleccionado.slice(8,seleccionado.length);
 
-  document.getElementById("id_paciente").value = nombre;
-  document.getElementById("id_cama").value = cama;
+    document.getElementById("id_paciente").value = nombre;
+    document.getElementById("id_cama").value = cama;
+
+  }else{
+    confirm('no selecciono ningun paciente');
+  }
+  
+
 }
 
 
@@ -138,9 +142,13 @@ function set_insumos(){
   var seleccionado = document.getElementById("select_insumo").value;
   console.log(seleccionado);
 
-  var tabla_insumos = document.getElementById("tabla_insumos");
-  tabla_insumos.innerHTML += "<tr class=''><td class='insumo'>" + seleccionado + "</td><td class='cantidad'>1</td><td><span class='btn btn-sm btn-outline-gris mr-1 mb-1' onclick='sumar(this)'><i class='fa fa-plus fa-lg'></i></span><span class='btn btn-sm btn-outline-gris mr-1 mb-1' onclick='restar(this)'><i class='fa fa-minus fa-lg'></i></span><span class='btn btn-sm btn-outline-gris mr-1 mb-1' onclick='quitar(this)'><i class='fa fa-trash-o fa-lg'></i></span></td></tr>";   
-  //tabla_insumos.innerHTML += "<tr class=''><td class='insumo'>" + seleccionado + "</td><td class='cantidad'>1</td><td><i class='fa fa-plus fa-lg mr-1 mb-1' onclick='sumar(this)'></i><i class='fa fa-minus fa-lg mr-1 mb-1' onclick='restar(this)'></i><i class='fa fa-trash-o fa-lg mr-1 mb-1' onclick='quitar(this)'></i></td></tr>";   
+  if(seleccionado != ""){
+    var tabla_insumos = document.getElementById("tabla_insumos");
+    tabla_insumos.innerHTML += "<tr class=''><td class='insumo'>" + seleccionado + "</td><td class='cantidad'>1</td><td><span class='btn btn-sm btn-outline-gris mr-1 mb-1' onclick='sumar(this)'><i class='fa fa-plus fa-lg'></i></span><span class='btn btn-sm btn-outline-gris mr-1 mb-1' onclick='restar(this)'><i class='fa fa-minus fa-lg'></i></span><span class='btn btn-sm btn-outline-gris mr-1 mb-1' onclick='quitar(this)'><i class='fa fa-trash-o fa-lg'></i></span></td></tr>";   
+    //tabla_insumos.innerHTML += "<tr class=''><td class='insumo'>" + seleccionado + "</td><td class='cantidad'>1</td><td><i class='fa fa-plus fa-lg mr-1 mb-1' onclick='sumar(this)'></i><i class='fa fa-minus fa-lg mr-1 mb-1' onclick='restar(this)'></i><i class='fa fa-trash-o fa-lg mr-1 mb-1' onclick='quitar(this)'></i></td></tr>";   
+  }else{
+    //console.log("no selecciono ningun insumo");
+  }
 
 
 }
