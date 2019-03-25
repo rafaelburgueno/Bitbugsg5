@@ -62,15 +62,16 @@ class PedidoDetailView(DetailView):
 class PedidoCreate(CreateView):
     model = Pedidos
     # en la siguiente lines se tienen que especificar los campos que el usuario podra crear
-    fields = ['paciente','cama','insumos','urgencia']
+    fields = ['created','paciente','cama','insumos','urgencia']
     # success_url = reverse_lazy('pedidos:pedidos')
 
     ###################################################
-    # PRUEBO MANDAR UN CONTEXT DATA
+    # MANDo EL CONTEXT DATA
     def get_context_data(self, **kwargs):
         context = super(PedidoCreate, self).get_context_data(**kwargs)
         context['pacientes'] = Paciente.objects.all()
         context['insumos'] = Insumo.objects.all()
+        context['fecha_de_creacion'] = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
         return context
     ###################################################
 

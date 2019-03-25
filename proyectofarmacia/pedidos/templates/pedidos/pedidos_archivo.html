@@ -11,7 +11,7 @@
 
 
     {% comment %} las siguientes 'pipes' le dice que campo usar para ordenar los resultados(por urgencia y en reversa: '|dictsort:"urgencia" reversed ') {% endcomment %}
-    {% for pedido in pedidos_list|dictsort:"created" reversed %}
+    {% for pedido in pedidos_list|dictsort:"id" reversed %}
 
       <div class="card mb-5 borde-superior-azul">
         <form>

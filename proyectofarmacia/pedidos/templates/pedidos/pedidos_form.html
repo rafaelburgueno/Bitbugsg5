@@ -31,6 +31,8 @@
       <form action="" method="post" id="formularioCrear" onsubmit="return enviar()">{% csrf_token %}
         <div class="pedidos-panel-colapsable p-3">
 
+        <input type="hidden" class="" name="created" required value="{{fecha_de_creacion}}">
+
           {% comment %} 
           BOTON URGENCIA
           {% endcomment %}
