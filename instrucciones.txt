@@ -1,4 +1,6 @@
-Esta es la lista de paquetes y versiones necesarias para que la aplicacion funcione correctamente.
+########################################################################################
+Lista de paquetes y versiones necesarias para que la aplicacion funcione correctamente.
+########################################################################################
 
 Package           Version
 ----------------- ----------
@@ -20,3 +22,12 @@ six               1.12.0
 wheel             0.32.3
 wrapt             1.11.1
 
+
+#######################################
+usuarios para acceder a la plataforma:
+#######################################
+usuario: usuario
+contraseña: bit12345
+
+usuario: admin
+contraseña: bit12345
